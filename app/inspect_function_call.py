@@ -10,7 +10,6 @@ from tool_registry import get_registered_tool_names, is_tool_registered
 from tool_schemas import get_tool_declarations
 
 
-DEFAULT_MODEL_NAME = "gemini-2.0-flash"
 DEFAULT_QUESTION = "오류 질문을 할 때 무엇을 함께 공유해야 하나요?"
 
 
@@ -20,7 +19,7 @@ def create_gemini_client() -> genai.Client:
 
     api_key = os.getenv("GEMINI_API_KEY")
 
-    if not api_key:
+    if not api_key or api_key == "your_api_key_here":
         raise RuntimeError(
             "GEMINI_API_KEY가 설정되어 있지 않습니다. "
             "프로젝트 루트의 .env 파일을 확인하세요."
@@ -30,9 +29,17 @@ def create_gemini_client() -> genai.Client:
 
 
 def load_model_name() -> str:
-    """Function Calling 요청에 사용할 Gemini 모델 이름을 가져옵니다."""
+    """Function Calling 요청에 사용할 Gemini 모델 이름을 .env에서 가져옵니다."""
     load_dotenv()
-    return os.getenv("GEMINI_MODEL_NAME", DEFAULT_MODEL_NAME)
+    model_name = os.getenv("GEMINI_MODEL_NAME")
+
+    if not model_name:
+        raise RuntimeError(
+            "GEMINI_MODEL_NAME이 설정되어 있지 않습니다. "
+            "프로젝트 루트의 .env 파일을 확인하세요."
+        )
+
+    return model_name
 
 
 def build_system_instruction() -> str:
