@@ -10,23 +10,40 @@ from tool_dispatcher import safe_dispatch_function_call
 from tool_schemas import get_tool_declarations
 
 
-MODEL_NAME = "gemini-2.0-flash"
 DEFAULT_QUESTION = "오류 질문을 할 때 무엇을 함께 공유해야 하나요?"
 
 
-def create_gemini_client() -> genai.Client:
-    """Gemini API client를 생성합니다."""
+def load_api_key() -> str:
+    """.env 파일에서 Gemini API Key를 읽습니다."""
     load_dotenv()
-
     api_key = os.getenv("GEMINI_API_KEY")
 
-    if not api_key:
+    if not api_key or api_key == "your_api_key_here":
         raise RuntimeError(
             "GEMINI_API_KEY가 설정되어 있지 않습니다. "
             "프로젝트 루트의 .env 파일을 확인하세요."
         )
 
-    return genai.Client(api_key=api_key)
+    return api_key
+
+
+def load_model_name() -> str:
+    """.env 파일에서 Gemini 모델명을 읽습니다."""
+    load_dotenv()
+    model_name = os.getenv("GEMINI_MODEL_NAME")
+
+    if not model_name:
+        raise RuntimeError(
+            "GEMINI_MODEL_NAME이 설정되어 있지 않습니다. "
+            "프로젝트 루트의 .env 파일에 GEMINI_MODEL_NAME=gemini-flash-lite-latest를 입력하세요."
+        )
+
+    return model_name
+
+
+def create_gemini_client() -> genai.Client:
+    """Gemini API client를 생성합니다."""
+    return genai.Client(api_key=load_api_key())
 
 
 def build_system_instruction() -> str:
@@ -53,7 +70,7 @@ def request_function_call(client: genai.Client, question: str) -> Any:
     tool_declarations = get_tool_declarations()
 
     response = client.models.generate_content(
-        model=MODEL_NAME,
+        model=load_model_name(),
         contents=question,
         config=types.GenerateContentConfig(
             system_instruction=build_system_instruction(),
@@ -192,7 +209,7 @@ def request_final_answer(
     )
 
     final_response = client.models.generate_content(
-        model=MODEL_NAME,
+        model=load_model_name(),
         contents=contents,
         config=types.GenerateContentConfig(
             system_instruction=build_system_instruction(),
@@ -259,49 +276,36 @@ def run_tool_calling_round(question: str) -> dict[str, Any]:
     }
 
 
-def print_round_result(result: dict[str, Any]) -> None:
-    """Function Result 전달 흐름 실행 결과를 보기 좋게 출력합니다."""
-    print("=" * 70)
-    print("Function Result를 모델에 다시 전달하기")
-    print("=" * 70)
-    print(f"질문: {result['question']}")
-    print(f"tool 사용 여부: {result['used_tool']}")
+def print_result(result: dict[str, Any]) -> None:
+    """실행 결과를 콘솔에 출력합니다."""
+    print("=" * 80)
+    print("질문")
+    print("=" * 80)
+    print(result["question"])
     print()
 
-    if result["function_call"]:
-        print("[1차 interaction: function_call]")
-        print(json.dumps(result["function_call"], ensure_ascii=False, indent=2))
-        print()
+    print("=" * 80)
+    print("Function Call")
+    print("=" * 80)
+    print(json.dumps(result["function_call"], ensure_ascii=False, indent=2))
+    print()
 
-    if result["dispatch_response"]:
-        print("[Python tool 실행 결과]")
-        print(json.dumps(result["dispatch_response"], ensure_ascii=False, indent=2))
-        print()
+    print("=" * 80)
+    print("Tool 실행 결과")
+    print("=" * 80)
+    print(json.dumps(result["dispatch_response"], ensure_ascii=False, indent=2))
+    print()
 
-    print("[2차 interaction: 최종 답변]")
+    print("=" * 80)
+    print("최종 답변")
+    print("=" * 80)
     print(result["final_answer"])
-    print()
 
 
 def main() -> None:
-    """
-    function_result_response.py 단독 실행 예제입니다.
-
-    실행 전 준비:
-    1. .env에 GEMINI_API_KEY 설정
-    2. Chapter 7 chunk 인덱싱 완료
-    """
-    question = input(f"질문을 입력하세요 [{DEFAULT_QUESTION}]: ").strip()
-
-    if not question:
-        question = DEFAULT_QUESTION
-
-    print()
-    print("1차 interaction → tool 실행 → function result 전달 → 최종 답변 생성을 시작합니다.")
-    print()
-
-    result = run_tool_calling_round(question)
-    print_round_result(result)
+    """기본 질문으로 function calling round를 실행합니다."""
+    result = run_tool_calling_round(DEFAULT_QUESTION)
+    print_result(result)
 
 
 if __name__ == "__main__":
