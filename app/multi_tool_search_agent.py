@@ -5,10 +5,6 @@ from function_result_response import run_tool_calling_round
 from tool_registry import get_registered_tool_names
 from tool_schemas import get_tool_declarations
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 8c290b5 (Add chapter09 multi tool search agent)
 DEFAULT_QUESTIONS = [
     "오류 질문을 할 때 무엇을 함께 공유해야 하나요?",
     "API Key 보안 정책만 기준으로 설명해 주세요.",
@@ -26,10 +22,6 @@ def get_available_tool_summary() -> list[dict[str, Any]]:
 
     for declaration in declarations:
         tool_name = declaration["name"]
-<<<<<<< HEAD
-
-=======
->>>>>>> 8c290b5 (Add chapter09 multi tool search agent)
         tool_summary.append(
             {
                 "name": tool_name,
@@ -50,10 +42,6 @@ def print_available_tools() -> None:
 
     for item in get_available_tool_summary():
         status = "등록됨" if item["registered"] else "미등록"
-<<<<<<< HEAD
-
-=======
->>>>>>> 8c290b5 (Add chapter09 multi tool search agent)
         print(f"- {item['name']}")
         print(f"  status: {status}")
         print(f"  required: {item['required']}")
@@ -65,16 +53,9 @@ def print_available_tools() -> None:
 
 
 def format_function_call(function_call: dict[str, Any] | None) -> str:
-<<<<<<< HEAD
-    """선택된 function_call을 보기 좋은 문자열로 변환합니다."""
-    if function_call is None:
-        return "선택된 function_call이 없습니다."
-
-=======
     """선택된 function_call을 보기 좋게 출력하기 위한 문자열로 변환합니다."""
     if function_call is None:
         return "선택된 function_call이 없습니다."
->>>>>>> 8c290b5 (Add chapter09 multi tool search agent)
     return json.dumps(function_call, ensure_ascii=False, indent=2)
 
 
@@ -117,24 +98,12 @@ def print_agent_result(result: dict[str, Any]) -> None:
     print(f"질문: {result['question']}")
     print(f"tool 사용 여부: {result['used_tool']}")
     print()
-<<<<<<< HEAD
-
-    print("[LLM이 선택한 function_call]")
-    print(format_function_call(result.get("function_call")))
-    print()
-
-    print("[Tool Dispatcher 실행 요약]")
-    print(extract_tool_result_summary(result.get("dispatch_response")))
-    print()
-
-=======
     print("[LLM이 선택한 function_call]")
     print(format_function_call(result.get("function_call")))
     print()
     print("[Tool Dispatcher 실행 요약]")
     print(extract_tool_result_summary(result.get("dispatch_response")))
     print()
->>>>>>> 8c290b5 (Add chapter09 multi tool search agent)
     print("[최종 답변]")
     print(result.get("final_answer") or "최종 답변이 비어 있습니다.")
     print("=" * 80)
@@ -144,10 +113,6 @@ def print_agent_result(result: dict[str, Any]) -> None:
 def run_multi_tool_agent(question: str) -> dict[str, Any]:
     """
     여러 tool을 제공한 상태에서 질문 하나를 처리합니다.
-<<<<<<< HEAD
-
-=======
->>>>>>> 8c290b5 (Add chapter09 multi tool search agent)
     실제 tool 선택은 Gemini가 수행합니다.
     Python 코드는 모델이 선택한 function_call을 검증하고 실행합니다.
     """
@@ -157,10 +122,6 @@ def run_multi_tool_agent(question: str) -> dict[str, Any]:
 def run_demo_questions() -> None:
     """질문 유형별로 어떤 tool이 선택되는지 확인합니다."""
     print_available_tools()
-<<<<<<< HEAD
-
-=======
->>>>>>> 8c290b5 (Add chapter09 multi tool search agent)
     for question in DEFAULT_QUESTIONS:
         result = run_multi_tool_agent(question)
         print_agent_result(result)
@@ -169,34 +130,18 @@ def run_demo_questions() -> None:
 def run_interactive_loop() -> None:
     """사용자가 직접 질문을 입력하며 여러 tool 선택을 확인합니다."""
     print_available_tools()
-<<<<<<< HEAD
-
-=======
->>>>>>> 8c290b5 (Add chapter09 multi tool search agent)
     print("Multi Tool Search Agent를 시작합니다.")
     print("종료하려면 q 또는 quit를 입력하세요.")
     print()
 
     while True:
         question = input("질문을 입력하세요: ").strip()
-<<<<<<< HEAD
-
-        if question.lower() in {"q", "quit", "exit"}:
-            print("Multi Tool Search Agent를 종료합니다.")
-            break
-
-        if not question:
-            print("질문이 비어 있습니다. 다시 입력해 주세요.")
-            continue
-
-=======
         if question.lower() in {"q", "quit", "exit"}:
             print("Multi Tool Search Agent를 종료합니다.")
             break
         if not question:
             print("질문이 비어 있습니다. 다시 입력해 주세요.")
             continue
->>>>>>> 8c290b5 (Add chapter09 multi tool search agent)
         result = run_multi_tool_agent(question)
         print_agent_result(result)
 
@@ -215,10 +160,6 @@ def main() -> None:
     print()
 
     mode = input("선택 [1]: ").strip()
-<<<<<<< HEAD
-
-=======
->>>>>>> 8c290b5 (Add chapter09 multi tool search agent)
     if not mode:
         mode = "1"
 
