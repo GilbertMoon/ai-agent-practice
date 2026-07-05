@@ -1,0 +1,20 @@
+{"timestamp": "2026-07-06T08:28:12", "trace_id": "agentops_20260706_082812_3eb23baa", "step": "agent_start", "status": "success", "message": "agent request received", "extra": {"session_id": "demo-session"}}
+{"timestamp": "2026-07-06T08:28:12", "trace_id": "agentops_20260706_082812_3eb23baa", "step": "memory_load", "status": "success", "message": "memory loaded", "extra": {"memory_count": 0}}
+{"timestamp": "2026-07-06T08:28:12", "trace_id": "agentops_20260706_082812_3eb23baa", "step": "rag_search", "status": "success", "message": "document search completed", "extra": {"source_count": 0}}
+{"timestamp": "2026-07-06T08:28:12", "trace_id": "agentops_20260706_082812_3eb23baa", "step": "agent_complete", "status": "success", "message": "agent request completed", "extra": {"score": 19}}
+{"timestamp": "2026-07-06T08:32:08", "trace_id": "agentops_20260706_083208_3b348986", "step": "agent_start", "status": "success", "message": "agent request received", "extra": {"session_id": "demo-session"}}
+{"timestamp": "2026-07-06T08:32:08", "trace_id": "agentops_20260706_083208_3b348986", "step": "memory_load", "status": "success", "message": "memory loaded", "extra": {"memory_count": 0}}
+{"timestamp": "2026-07-06T08:32:08", "trace_id": "agentops_20260706_083208_3b348986", "step": "rag_search", "status": "success", "message": "document search completed", "extra": {"source_count": 3}}
+{"timestamp": "2026-07-06T08:32:08", "trace_id": "agentops_20260706_083208_3b348986", "step": "agent_complete", "status": "success", "message": "agent request completed", "extra": {"score": 21}}
+{"timestamp": "2026-07-06T08:33:52", "trace_id": "agentops_20260706_083352_26a05830", "step": "agent_start", "status": "success", "message": "agent request received", "extra": {"session_id": "demo-session"}}
+{"timestamp": "2026-07-06T08:33:52", "trace_id": "agentops_20260706_083352_26a05830", "step": "memory_load", "status": "success", "message": "memory loaded", "extra": {"memory_count": 1}}
+{"timestamp": "2026-07-06T08:33:52", "trace_id": "agentops_20260706_083352_26a05830", "step": "rag_search", "status": "success", "message": "document search completed", "extra": {"source_count": 3}}
+{"timestamp": "2026-07-06T08:33:52", "trace_id": "agentops_20260706_083352_26a05830", "step": "agent_complete", "status": "success", "message": "agent request completed", "extra": {"score": 21}}
+{"timestamp": "2026-07-06T08:34:04", "trace_id": "agentops_20260706_083404_e9d1a7bc", "step": "agent_start", "status": "success", "message": "agent request received", "extra": {"session_id": "demo-session"}}
+{"timestamp": "2026-07-06T08:34:04", "trace_id": "agentops_20260706_083404_e9d1a7bc", "step": "memory_load", "status": "success", "message": "memory loaded", "extra": {"memory_count": 2}}
+{"timestamp": "2026-07-06T08:34:04", "trace_id": "agentops_20260706_083404_e9d1a7bc", "step": "rag_search", "status": "success", "message": "document search completed", "extra": {"source_count": 3}}
+{"timestamp": "2026-07-06T08:34:04", "trace_id": "agentops_20260706_083404_e9d1a7bc", "step": "agent_complete", "status": "success", "message": "agent request completed", "extra": {"score": 21}}
+{"timestamp": "2026-07-06T08:41:55", "trace_id": "agentops_20260706_084155_7744a99e", "step": "agent_start", "status": "success", "message": "agent request received", "extra": {"session_id": "demo-session"}}
+{"timestamp": "2026-07-06T08:41:55", "trace_id": "agentops_20260706_084155_7744a99e", "step": "memory_load", "status": "success", "message": "memory loaded", "extra": {"memory_count": 3}}
+{"timestamp": "2026-07-06T08:41:55", "trace_id": "agentops_20260706_084155_7744a99e", "step": "rag_search", "status": "success", "message": "document search completed", "extra": {"source_count": 3}}
+{"timestamp": "2026-07-06T08:41:55", "trace_id": "agentops_20260706_084155_7744a99e", "step": "agent_complete", "status": "success", "message": "agent request completed", "extra": {"score": 21}}
