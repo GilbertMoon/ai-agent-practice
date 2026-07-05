@@ -48,6 +48,7 @@ answer_step = load_app_function("answer_generator", "answer_step")
 fallback_step = load_app_function("fallback_handler", "fallback_step")
 create_initial_state = load_app_function("state_schema", "create_initial_state")
 summarize_state = load_app_function("state_schema", "summarize_state")
+log_step = load_app_function("workflow_logger", "log_step")
 
 analyze_question_step = load_app_function("workflow_steps", "analyze_question_step")
 route_question_step = load_app_function("workflow_steps", "route_question_step")
@@ -65,12 +66,13 @@ WORKFLOW_STEPS: list[WorkflowStep] = [
 ]
 
 
-def run_workflow(user_question: str) -> dict[str, Any]:
-    """모든 step을 순서대로 실행합니다."""
+def run_workflow(user_question: str, write_log: bool = True) -> dict[str, Any]:
+    """모든 step을 순서대로 실행하고 step별 로그를 남깁니다."""
     state = create_initial_state(user_question)
 
     for step in WORKFLOW_STEPS:
         state = step(state)
+        log_step(state, step.__name__, write_file=write_log)
 
     return state
 
@@ -97,7 +99,7 @@ def main() -> None:
             print("질문이 비어 있습니다. 다시 입력해 주세요.")
             continue
 
-        state = run_workflow(question)
+        state = run_workflow(question, write_log=True)
         print_state_summary(state)
 
 
