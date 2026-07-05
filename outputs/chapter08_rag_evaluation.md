@@ -17,10 +17,10 @@
 
 | 질문 | 답변 관련성 | 충실성 | 근거성 | 간결성 | 총점 | top context | 코멘트 |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 민감 정보는 어디에 저장해야 하나요? | 2 | 2 | 2 | 2 | 8 | size500_overlap100_course_policy_long_p013_c001 | 질문에 적절하고 context에 근거한 답변으로 보임 |
-| GitHub 제출 기준은 무엇인가요? | 1 | 2 | 2 | 2 | 7 | course_policy_long_p018_c001 | 일부 관련성은 있으나 근거성 또는 충실성 확인 필요 |
-| 오류 질문을 할 때 무엇을 함께 공유해야 하나요? | 2 | 2 | 2 | 2 | 8 | size300_overlap50_course_policy_long_p022_c001 | 질문에 적절하고 context에 근거한 답변으로 보임 |
-| 미니 프로젝트 결과물에는 무엇이 포함되어야 하나요? | 1 | 2 | 2 | 2 | 7 | course_policy_long_p036_c001 | 일부 관련성은 있으나 근거성 또는 충실성 확인 필요 |
+| 민감 정보는 어디에 저장해야 하나요? | 0 | 2 | 1 | 2 | 5 | paragraph_course_policy_long_p032_c001 | 질문과 답변의 관련성이 낮아 보임 |
+| GitHub 제출 기준은 무엇인가요? | 2 | 2 | 2 | 2 | 8 | paragraph_course_policy_long_p019_c001 | 질문에 적절하고 context에 근거한 답변으로 보임 |
+| 오류 질문을 할 때 무엇을 함께 공유해야 하나요? | 1 | 2 | 2 | 2 | 7 | paragraph_course_policy_long_p034_c001 | 일부 관련성은 있으나 근거성 또는 충실성 확인 필요 |
+| 미니 프로젝트 결과물에는 무엇이 포함되어야 하나요? | 2 | 2 | 2 | 2 | 8 | paragraph_course_policy_long_p038_c001 | 질문에 적절하고 context에 근거한 답변으로 보임 |
 
 ## 상세 답변
 
@@ -28,62 +28,62 @@
 
 #### 생성 답변
 
-답변: Gemini API Key와 같은 민감 정보는 반드시 .env 파일에 저장해야 합니다. 코드에 직접 작성해서는 안 되며, .env 파일은 .gitignore에 포함하여 GitHub에 커밋되지 않도록 관리해야 합니다.
+답변: 제공된 수업 안내 문서에는 민감 정보 저장 위치에 대한 내용이 포함되어 있지 않습니다.
 
-근거: size500_overlap100_course_policy_long_p013_c001 (4. API Key 보안 정책)
+근거: 해당 내용 없음 (context 1, 2, 3 / section: 10. metadata 설계 기준)
 
 #### 검색 context
 
 | rank | chunk_id | section | distance | text 요약 |
 | --- | --- | --- | --- | --- |
-| 1 | size500_overlap100_course_policy_long_p013_c001 | 4. API Key 보안 정책 | 0.7217 | Gemini API Key는 반드시 .env 파일에 저장합니다. API Key를 Python 코드에 직접 작성하지 않습니다. .env 파일은 .gitignore에 포함되어 있어야 하며 GitHub에 커밋하지 않습니다 |
-| 2 | size300_overlap0_course_policy_long_p013_c001 | 4. API Key 보안 정책 | 0.7227 | Gemini API Key는 반드시 .env 파일에 저장합니다. API Key를 Python 코드에 직접 작성하지 않습니다. .env 파일은 .gitignore에 포함되어 있어야 하며 GitHub에 커밋하지 않습니다 |
-| 3 | size300_overlap50_course_policy_long_p013_c001 | 4. API Key 보안 정책 | 0.7245 | Gemini API Key는 반드시 .env 파일에 저장합니다. API Key를 Python 코드에 직접 작성하지 않습니다. .env 파일은 .gitignore에 포함되어 있어야 하며 GitHub에 커밋하지 않습니다 |
+| 1 | paragraph_course_policy_long_p032_c001 | 10. metadata 설계 기준 | 1.0323 | metadata는 검색 결과를 해석할 때 중요합니다. 검색된 chunk가 어느 문서에서 왔는지, 어느 섹션에 있는지, 원래 문단의 어느 위치에서 만들어졌는지 알 수 있어야 합니다. RAG에서는 답변뿐 아니라 근거 제 |
+| 2 | size500_overlap100_course_policy_long_p032_c001 | 10. metadata 설계 기준 | 1.1452 | metadata는 검색 결과를 해석할 때 중요합니다. 검색된 chunk가 어느 문서에서 왔는지, 어느 섹션에 있는지, 원래 문단의 어느 위치에서 만들어졌는지 알 수 있어야 합니다. RAG에서는 답변뿐 아니라 근거 제 |
+| 3 | size300_overlap50_course_policy_long_p032_c001 | 10. metadata 설계 기준 | 1.1558 | metadata는 검색 결과를 해석할 때 중요합니다. 검색된 chunk가 어느 문서에서 왔는지, 어느 섹션에 있는지, 원래 문단의 어느 위치에서 만들어졌는지 알 수 있어야 합니다. RAG에서는 답변뿐 아니라 근거 제 |
 
 ### 질문: GitHub 제출 기준은 무엇인가요?
 
 #### 생성 답변
 
-답변: 제공된 문서에는 GitHub 제출 기준의 항목명만 명시되어 있을 뿐, 구체적인 세부 내용은 포함되어 있지 않습니다.
+답변: 실습 코드를 GitHub에 커밋하고 푸시해야 하며, 커밋 메시지는 작업 내용을 알 수 있도록 구체적으로 작성해야 합니다. 의미 없는 메시지나 너무 큰 단위의 커밋은 지양해야 합니다.
 
-근거: course_policy_long_p018_c001, 6. GitHub 제출 기준
+근거: paragraph_course_policy_long_p019_c001, 6. GitHub 제출 기준
 
 #### 검색 context
 
 | rank | chunk_id | section | distance | text 요약 |
 | --- | --- | --- | --- | --- |
-| 1 | course_policy_long_p018_c001 | 6. GitHub 제출 기준 | 0.2348 | ## 6. GitHub 제출 기준 |
-| 2 | size500_overlap100_course_policy_long_p018_c001 | 6. GitHub 제출 기준 | 0.2452 | ## 6. GitHub 제출 기준 |
-| 3 | size300_overlap50_course_policy_long_p018_c001 | 6. GitHub 제출 기준 | 0.2606 | ## 6. GitHub 제출 기준 |
+| 1 | paragraph_course_policy_long_p019_c001 | 6. GitHub 제출 기준 | 0.8907 | 실습 코드는 GitHub에 커밋하고 푸시합니다. 커밋 메시지는 작업 내용을 알 수 있도록 작성합니다. 예를 들어 Add chapter07 chunking practice structure, Implement chun |
+| 2 | paragraph_course_policy_long_p018_c001 | 6. GitHub 제출 기준 | 0.9436 | ## 6. GitHub 제출 기준 |
+| 3 | size300_overlap50_course_policy_long_p018_c001 | 6. GitHub 제출 기준 | 0.9467 | ## 6. GitHub 제출 기준 |
 
 ### 질문: 오류 질문을 할 때 무엇을 함께 공유해야 하나요?
 
 #### 생성 답변
 
-답변: 실행한 명령어, 전체 에러 메시지, 현재 작업 폴더, Python 버전, 설치한 패키지 목록, 시도한 해결 방법을 공유해야 합니다. 가능하면 터미널 화면 캡처나 로그 파일을 함께 첨부하십시오.
+답변: 제공된 문서에는 오류 질문 시 무엇을 함께 공유해야 하는지에 대한 구체적인 답변 내용이 포함되어 있지 않습니다.
 
-근거: size300_overlap50_course_policy_long_p022_c001 (7. 오류 질문 방법)
+근거: paragraph_course_policy_long_p034_c001 (11. 검색 결과 비교 기준)
 
 #### 검색 context
 
 | rank | chunk_id | section | distance | text 요약 |
 | --- | --- | --- | --- | --- |
-| 1 | size300_overlap50_course_policy_long_p022_c001 | 7. 오류 질문 방법 | 0.437 | 오류가 발생했을 때는 단순히 안 됩니다라고 질문하지 않습니다. 질문할 때는 실행한 명령어, 전체 에러 메시지, 현재 작업 폴더, Python 버전, 설치한 패키지 목록, 시도한 해결 방법을 함께 공유합니다. 가능하면 |
-| 2 | size300_overlap0_course_policy_long_p022_c001 | 7. 오류 질문 방법 | 0.4395 | 오류가 발생했을 때는 단순히 안 됩니다라고 질문하지 않습니다. 질문할 때는 실행한 명령어, 전체 에러 메시지, 현재 작업 폴더, Python 버전, 설치한 패키지 목록, 시도한 해결 방법을 함께 공유합니다. 가능하면 |
-| 3 | size500_overlap100_course_policy_long_p022_c001 | 7. 오류 질문 방법 | 0.4418 | 오류가 발생했을 때는 단순히 안 됩니다라고 질문하지 않습니다. 질문할 때는 실행한 명령어, 전체 에러 메시지, 현재 작업 폴더, Python 버전, 설치한 패키지 목록, 시도한 해결 방법을 함께 공유합니다. 가능하면 |
+| 1 | paragraph_course_policy_long_p034_c001 | 11. 검색 결과 비교 기준 | 0.9006 | 청킹 전략을 비교할 때는 동일한 질문 세트를 사용해야 합니다. 예를 들어 API Key는 어디에 저장해야 하나요, 과제 제출 기한은 언제인가요, 오류 질문을 할 때 무엇을 함께 공유해야 하나요, 미니 프로젝트 결과물 |
+| 2 | size300_overlap0_course_policy_long_p034_c001 | 11. 검색 결과 비교 기준 | 0.9159 | 청킹 전략을 비교할 때는 동일한 질문 세트를 사용해야 합니다. 예를 들어 API Key는 어디에 저장해야 하나요, 과제 제출 기한은 언제인가요, 오류 질문을 할 때 무엇을 함께 공유해야 하나요, 미니 프로젝트 결과물 |
+| 3 | size300_overlap50_course_policy_long_p034_c001 | 11. 검색 결과 비교 기준 | 0.9182 | 청킹 전략을 비교할 때는 동일한 질문 세트를 사용해야 합니다. 예를 들어 API Key는 어디에 저장해야 하나요, 과제 제출 기한은 언제인가요, 오류 질문을 할 때 무엇을 함께 공유해야 하나요, 미니 프로젝트 결과물 |
 
 ### 질문: 미니 프로젝트 결과물에는 무엇이 포함되어야 하나요?
 
 #### 생성 답변
 
-답변: 제공된 문서에는 '12. 미니 프로젝트 결과물'이라는 제목만 있을 뿐, 구체적으로 포함되어야 할 내용은 기재되어 있지 않습니다.
+답변: 미니 프로젝트 제출 시 사용한 chunk_size와 chunk_overlap 값을 명시해야 하며, 가장 좋은 결과를 보인 설정에 대한 짧은 설명을 포함해야 합니다.
 
-근거: course_policy_long_p036_c001 (12. 미니 프로젝트 결과물)
+근거: chunk_id: paragraph_course_policy_long_p038_c001, section: 12. 미니 프로젝트 결과물
 
 #### 검색 context
 
 | rank | chunk_id | section | distance | text 요약 |
 | --- | --- | --- | --- | --- |
-| 1 | course_policy_long_p036_c001 | 12. 미니 프로젝트 결과물 | 0.2763 | ## 12. 미니 프로젝트 결과물 |
-| 2 | size500_overlap100_course_policy_long_p036_c001 | 12. 미니 프로젝트 결과물 | 0.3218 | ## 12. 미니 프로젝트 결과물 |
-| 3 | size300_overlap50_course_policy_long_p036_c001 | 12. 미니 프로젝트 결과물 | 0.3331 | ## 12. 미니 프로젝트 결과물 |
+| 1 | paragraph_course_policy_long_p038_c001 | 12. 미니 프로젝트 결과물 | 0.6528 | 미니 프로젝트를 제출할 때는 어떤 chunk_size와 chunk_overlap을 사용했는지 명시해야 합니다. 또한 가장 좋은 결과를 보인 설정이 무엇인지 짧게 설명해야 합니다. 정답은 하나로 고정되어 있지 않습니다 |
+| 2 | size500_overlap100_course_policy_long_p038_c001 | 12. 미니 프로젝트 결과물 | 0.6805 | 미니 프로젝트를 제출할 때는 어떤 chunk_size와 chunk_overlap을 사용했는지 명시해야 합니다. 또한 가장 좋은 결과를 보인 설정이 무엇인지 짧게 설명해야 합니다. 정답은 하나로 고정되어 있지 않습니다 |
+| 3 | size300_overlap50_course_policy_long_p038_c001 | 12. 미니 프로젝트 결과물 | 0.6862 | 미니 프로젝트를 제출할 때는 어떤 chunk_size와 chunk_overlap을 사용했는지 명시해야 합니다. 또한 가장 좋은 결과를 보인 설정이 무엇인지 짧게 설명해야 합니다. 정답은 하나로 고정되어 있지 않습니다 |
