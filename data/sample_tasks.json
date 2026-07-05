@@ -1,0 +1,30 @@
+[
+  {
+    "id": "task_001",
+    "title": "학생 안내문 작성",
+    "user_request": "이번 주 수업 공지와 과제 조건을 종합해서 학생들에게 보낼 안내문을 작성해 주세요.",
+    "expected_agents": ["Planner Agent", "Researcher Agent", "Writer Agent", "Reviewer Agent"],
+    "expected_outputs": ["plan", "research_notes", "draft_answer", "review_feedback", "final_answer"]
+  },
+  {
+    "id": "task_002",
+    "title": "기말 프로젝트 제출 조건 정리",
+    "user_request": "기말 프로젝트 제출 조건을 정리하고, 누락된 내용이 있으면 확인 필요라고 표시해 주세요.",
+    "expected_agents": ["Planner Agent", "Researcher Agent", "Writer Agent", "Reviewer Agent"],
+    "expected_outputs": ["plan", "research_notes", "draft_answer", "review_feedback", "final_answer"]
+  },
+  {
+    "id": "task_003",
+    "title": "평가 기준 포함 안내",
+    "user_request": "학생들이 혼동하지 않도록 제출물, 제출 형식, 마감일, 평가 기준을 나누어 안내해 주세요.",
+    "expected_agents": ["Planner Agent", "Researcher Agent", "Writer Agent", "Reviewer Agent"],
+    "expected_outputs": ["plan", "research_notes", "draft_answer", "review_feedback", "final_answer"]
+  },
+  {
+    "id": "task_004",
+    "title": "간단 개념 설명",
+    "user_request": "멀티 에이전트가 무엇인지 짧게 설명해 주세요.",
+    "expected_agents": ["Planner Agent", "Researcher Agent", "Writer Agent", "Reviewer Agent"],
+    "expected_outputs": ["plan", "research_notes", "draft_answer", "review_feedback", "final_answer"]
+  }
+]

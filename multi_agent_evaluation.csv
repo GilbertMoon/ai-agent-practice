@@ -1,0 +1,5 @@
+﻿task_id,title,plan_exists,plan_count,research_notes_count,draft_exists,review_feedback_count,final_answer_exists,revision_applied,log_count,expected_agent_coverage,error
+task_001,학생 안내문 작성,1,6,5,1,1,1,0,5,1,
+task_002,기말 프로젝트 제출 조건 정리,1,7,4,1,1,1,0,5,1,
+task_003,평가 기준 포함 안내,1,7,6,1,1,1,0,5,1,
+task_004,간단 개념 설명,1,5,4,1,1,1,0,5,1,

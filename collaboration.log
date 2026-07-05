@@ -1,0 +1,5 @@
+{"timestamp": "2026-07-05T22:49:17", "agent_name": "Planner Agent", "input_keys": ["user_request"], "output_keys": ["plan"], "status": "success", "message": "작업 계획 생성 완료"}
+{"timestamp": "2026-07-05T22:49:17", "agent_name": "Researcher Agent", "input_keys": ["user_request", "plan", "memory_context"], "output_keys": ["research_notes"], "status": "success", "message": "정보와 근거 정리 완료"}
+{"timestamp": "2026-07-05T22:49:17", "agent_name": "Writer Agent", "input_keys": ["user_request", "plan", "research_notes"], "output_keys": ["draft_answer"], "status": "success", "message": "답변 초안 작성 완료"}
+{"timestamp": "2026-07-05T22:49:17", "agent_name": "Reviewer Agent", "input_keys": ["user_request", "research_notes", "draft_answer"], "output_keys": ["review_feedback"], "status": "success", "message": "초안 검토 완료"}
+{"timestamp": "2026-07-05T22:49:17", "agent_name": "Coordinator", "input_keys": ["draft_answer"], "output_keys": ["final_answer"], "status": "success", "message": "최종 답변 확정 완료"}
