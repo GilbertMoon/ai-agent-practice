@@ -3,10 +3,10 @@ import os
 from dotenv import load_dotenv
 from google import genai
 
-DEFAULT_MODEL = "gemini-3.5-flash"
+DEFAULT_MODEL = "gemini-flash-lite-latest"
 
 
-def load_model_name() -> str:
+def load_settings() -> tuple[str, str]:
     load_dotenv()
 
     api_key = os.getenv("GEMINI_API_KEY")
@@ -18,12 +18,12 @@ def load_model_name() -> str:
             ".env 파일을 만들고 실제 Gemini API Key를 입력하세요."
         )
 
-    return model
+    return api_key, model
 
 
 def ask_gemini(prompt: str) -> str:
-    model = load_model_name()
-    client = genai.Client()
+    api_key, model = load_settings()
+    client = genai.Client(api_key=api_key)
 
     interaction = client.interactions.create(
         model=model,
