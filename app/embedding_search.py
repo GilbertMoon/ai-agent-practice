@@ -1,14 +1,13 @@
 from embedding_client import embed_text
 from vector_math import cosine_similarity
 
+
 def prepare_query(question: str) -> str:
     return f"task: search result | query: {question}"
 
 
 def prepare_document(content: str, title: str = "course_notice.txt") -> str:
     return f"title: {title} | text: {content}"
-
-from embedding_client import embed_text
 
 
 def build_embedded_paragraphs(paragraphs: list[str]) -> list[dict]:
@@ -26,8 +25,6 @@ def build_embedded_paragraphs(paragraphs: list[str]) -> list[dict]:
         )
 
     return embedded_paragraphs
-
-
 
 
 def search_similar_paragraphs(
