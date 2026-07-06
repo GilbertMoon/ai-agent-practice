@@ -11,6 +11,8 @@ Chroma 기반 수업 공지 RAG 챗봇입니다.
 주의:
 - .env 파일에 GEMINI_API_KEY가 설정되어 있어야 합니다.
 - .env 파일과 chroma_db/ 폴더는 GitHub에 올리지 않습니다.
+- 문단 임베딩과 질문 임베딩은 app/embedding_client.py의 로컬 임베딩 모델을 사용합니다.
+- Gemini API는 검색된 문단을 근거로 최종 답변을 생성할 때 사용합니다.
 """
 
 from __future__ import annotations
@@ -20,58 +22,20 @@ import sys
 from pathlib import Path
 
 import chromadb
-from dotenv import load_dotenv
-from google import genai
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 APP_DIR = PROJECT_ROOT / "app"
 DATA_FILE = PROJECT_ROOT / "data" / "course_notice.txt"
 CHROMA_DB_PATH = PROJECT_ROOT / "chroma_db"
 COLLECTION_NAME = "course_notice"
-EMBEDDING_MODEL = "gemini-embedding-2"
-ANSWER_MODEL = os.getenv("GEMINI_MODEL_NAME", "gemini-3.5-flash")
 
 # solutions/chapter06 폴더에서 실행해도 app 폴더의 공통 함수를 불러올 수 있도록 설정합니다.
 sys.path.append(str(APP_DIR))
 os.chdir(PROJECT_ROOT)
 
 from document_prompt import build_document_prompt, read_text_file, split_paragraphs  # noqa: E402
-
-
-def get_api_key() -> str:
-    """.env 파일에서 Gemini API Key를 읽습니다."""
-    load_dotenv()
-    api_key = os.getenv("GEMINI_API_KEY")
-
-    if not api_key:
-        raise ValueError("GEMINI_API_KEY를 .env 파일에서 확인하세요.")
-
-    return api_key
-
-
-def get_genai_client() -> genai.Client:
-    """Gemini API 클라이언트를 생성합니다."""
-    return genai.Client(api_key=get_api_key())
-
-
-def embed_text(text: str) -> list[float]:
-    """텍스트를 Gemini 임베딩 벡터로 변환합니다."""
-    client = get_genai_client()
-    result = client.models.embed_content(
-        model=EMBEDDING_MODEL,
-        contents=text,
-    )
-    return result.embeddings[0].values
-
-
-def ask_gemini(prompt: str) -> str:
-    """검색된 문단을 근거로 Gemini 답변을 생성합니다."""
-    client = get_genai_client()
-    interaction = client.interactions.create(
-        model=ANSWER_MODEL,
-        input=prompt,
-    )
-    return interaction.output_text
+from embedding_client import embed_text  # noqa: E402
+from gemini_client import ask_gemini  # noqa: E402
 
 
 def prepare_query(question: str) -> str:
@@ -192,6 +156,10 @@ def answer_question(question: str) -> tuple[list[dict], str]:
 def print_search_results(search_results: list[dict]) -> None:
     """검색 결과를 보기 좋게 출력합니다."""
     print("\n[검색된 관련 문단]")
+
+    if not search_results:
+        print("검색 결과가 없습니다. 문서 인덱싱 상태를 확인하세요.")
+        return
 
     for item in search_results:
         metadata = item["metadata"] or {}
