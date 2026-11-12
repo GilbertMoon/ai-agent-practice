@@ -1,9 +1,13 @@
 import contextlib
 import io
+import os
+import tempfile
 import math
 import sys
 import unittest
 from pathlib import Path
+
+import main as foundation_main
 from unittest.mock import patch
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -67,10 +71,33 @@ class EmbeddingSearchTests(unittest.TestCase):
         api.assert_not_called()
 
     def test_live_missing_model_has_no_api_call(self):
-        with patch("embedding_search.load_local_env"), \
-             patch("embedding_search.live_vectors", side_effect=ValueError("no model")):
-            with contextlib.redirect_stdout(io.StringIO()):
-                self.assertEqual(embedding_main(["마감일", "--mode", "live"]), 2)
+        # The real function rejects a missing model BEFORE importing any SDK.
+        with patch.dict(os.environ, {"OPENAI_API_KEY": "fake"}, clear=True):
+            with self.assertRaisesRegex(ValueError, "OPENAI_EMBEDDING_MODEL"):
+                live_vectors(["x"], "")
+            with patch("embedding_search.load_local_env") as load_env:
+                output = io.StringIO()
+                with contextlib.redirect_stdout(output):
+                    result = embedding_main(["마감일", "--mode", "live"])
+                self.assertEqual(result, 2)
+                self.assertIn("OPENAI_EMBEDDING_MODEL", output.getvalue())
+                load_env.assert_called_once()
+
+    def test_local_env_embedding_model_loaded_without_api(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            (root / ".env").write_text(
+                "OPENAI_API_KEY=TEST_ONLY_NOT_REAL\\n"
+                "OPENAI_EMBEDDING_MODEL=embedding-fixture-model\\n",
+                encoding="utf-8",
+            )
+            with patch.object(foundation_main, "__file__", str(root / "main.py")):
+                with patch.dict(os.environ, {}, clear=True):
+                    foundation_main.load_local_env()
+                    self.assertEqual(
+                        os.getenv("OPENAI_EMBEDDING_MODEL"), "embedding-fixture-model"
+                    )
+                    self.assertEqual(os.getenv("OPENAI_API_KEY"), "TEST_ONLY_NOT_REAL")
 
     def test_top_k_error(self):
         with contextlib.redirect_stdout(io.StringIO()):
