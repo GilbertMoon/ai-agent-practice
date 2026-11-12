@@ -1,3 +1,4 @@
+import os
 import subprocess
 import sys
 import unittest
@@ -5,7 +6,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
-from prompt_compare import build_prompt_pair, compare_live, validate_format
+from prompt_compare import build_prompt_pair, compare_live, validate_format, print_live_result
 from main import Reply
 
 
@@ -55,11 +56,60 @@ class CompareTests(unittest.TestCase):
         self.assertEqual(client.asked[1], pair.structured)
         self.assertEqual(len(results), 2)
 
+    def test_first_response_visible_if_second_fails(self):
+        class SecondCallFails:
+            calls = 0
+
+            def ask(self, question):
+                self.calls += 1
+                if self.calls == 2:
+                    raise ConnectionError("SECOND_FAILED")
+                return Reply(text="첫 번째 성공 응답", model="fake",
+                             input_tokens=8, output_tokens=5, measurement_mode="live")
+
+        recorded = []
+        client = SecondCallFails()
+        with self.assertRaises(ConnectionError):
+            compare_live(
+                build_prompt_pair("질문"),
+                client,
+                on_result=lambda name, reply: recorded.append((name, reply.text)),
+            )
+        self.assertEqual(client.calls, 2)
+        self.assertEqual(recorded, [("basic", "첫 번째 성공 응답")])
+
+    def test_printed_first_response_survives_second_failure(self):
+        import contextlib
+        import io
+
+        class SecondCallFails:
+            def __init__(self):
+                self.calls = 0
+
+            def ask(self, question):
+                self.calls += 1
+                if self.calls == 2:
+                    raise ConnectionError("SECOND_FAILED")
+                return Reply(text="첫 번째 성공 응답", model="fake",
+                             input_tokens=8, output_tokens=5, measurement_mode="live")
+
+        output = io.StringIO()
+        with contextlib.redirect_stdout(output):
+            with self.assertRaises(ConnectionError):
+                compare_live(build_prompt_pair("질문"), SecondCallFails(),
+                             on_result=print_live_result)
+        self.assertIn("첫 번째 성공 응답", output.getvalue())
+        self.assertIn("input=8", output.getvalue())
+
     def test_preview_cli_needs_no_key(self):
+        isolated_env = {key: value for key, value in os.environ.items()
+                        if key not in {"OPENAI_API_KEY", "OPENAI_MODEL",
+                                       "GEMINI_API_KEY", "GEMINI_MODEL_NAME"}}
+        isolated_env["PYTHONIOENCODING"] = "utf-8"
         run = subprocess.run(
             [sys.executable, str(ROOT / "prompt_compare.py"), "질문", "--mode", "preview"],
             text=True, capture_output=True, encoding="utf-8",
-            env={**__import__("os").environ, "PYTHONIOENCODING": "utf-8"},
+            env=isolated_env,
             check=False,
         )
         self.assertEqual(run.returncode, 0, run.stderr)
