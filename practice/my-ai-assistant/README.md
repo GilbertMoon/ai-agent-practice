@@ -9,12 +9,15 @@
 Windows PowerShell:
 
 ```powershell
-Set-Location C:\dev\ai-agent-engineering-book\practice\my-ai-assistant
-python main.py "이번 주 과제를 정리해 줘"
-python -m unittest discover -s tests -v
+Set-Location C:\dev\ai-agent-practice\practice\my-ai-assistant
+# 처음 실습할 때만 가상환경 생성 (이미 있다면 생략)
+python -m venv .venv
+.\.venv\Scripts\python.exe -m pip install -r requirements.txt
+.\.venv\Scripts\python.exe main.py "이번 주 과제를 정리해 줘"
+.\.venv\Scripts\python.exe -m unittest discover -s tests -v
 ```
 
-`[MOCK 예시]`는 실제 모델 답변이 아닙니다.
+`[MOCK 예시]`는 실제 모델 답변이 아닙니다. 공통 `requirements.txt`에는 후속 Lesson 06에서 사용할 Chroma가 포함되어 있으므로 Lesson 01에서 설치해 두면 전체 회귀 테스트를 실행할 수 있습니다. Mock 실행 자체는 API Key와 외부 모델 호출이 필요하지 않습니다.
 
 ## 실제 OpenAI API 호출 — 유료일 수 있음
 
