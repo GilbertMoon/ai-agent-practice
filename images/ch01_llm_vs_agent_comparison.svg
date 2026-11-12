@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="900" viewBox="0 0 1400 900">
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L0,6 L9,3 z" fill="#1e5bb8"/></marker>
+    <style>.title{font-family:Arial,'Noto Sans KR',sans-serif;font-size:44px;font-weight:800;fill:#111;text-anchor:middle}.panel{fill:#fff;stroke:#1e5bb8;stroke-width:3;rx:18}.head{fill:#0b57c2}.headtxt{font-family:Arial,'Noto Sans KR',sans-serif;font-size:30px;font-weight:800;fill:#fff;text-anchor:middle}.box{fill:#fff;stroke:#2d6dcc;stroke-width:2.5;rx:14}.label{font-family:Arial,'Noto Sans KR',sans-serif;font-size:23px;font-weight:700;fill:#0b2f6b;text-anchor:middle}.small{font-family:Arial,'Noto Sans KR',sans-serif;font-size:18px;fill:#222}.icon{font-size:44px;text-anchor:middle}.line{stroke:#1e5bb8;stroke-width:4;fill:none;marker-end:url(#arrow)}.feature{fill:#f7fbff;stroke:#2d6dcc;stroke-width:2.5;rx:14}.tag{fill:#0b57c2;rx:10}.tagtxt{font-family:Arial,'Noto Sans KR',sans-serif;font-size:23px;font-weight:700;fill:#fff;text-anchor:middle}.dash{fill:#fff;stroke:#2d6dcc;stroke-width:2.5;stroke-dasharray:8 7;rx:16}</style>
+  </defs>
+  <rect width="1400" height="900" fill="#fff"/>
+  <text x="700" y="70" class="title">LLM 기반 서비스 vs AI Agent 기반 서비스</text>
+  <rect x="40" y="120" width="520" height="700" class="panel"/><rect x="40" y="120" width="520" height="70" class="head"/><text x="300" y="165" class="headtxt">LLM 기반 서비스</text>
+  <rect x="70" y="270" width="130" height="150" class="box"/><text x="135" y="335" class="icon">👤</text><text x="135" y="392" class="label">사용자 입력</text>
+  <line x1="200" y1="345" x2="245" y2="345" class="line"/><rect x="250" y="270" width="130" height="150" class="box"/><text x="315" y="335" class="icon">🧠</text><text x="315" y="392" class="label">LLM</text>
+  <line x1="380" y1="345" x2="425" y2="345" class="line"/><rect x="430" y="270" width="100" height="150" class="box"/><text x="480" y="335" class="icon">💬</text><text x="480" y="392" class="label">응답 생성</text>
+  <rect x="70" y="560" width="460" height="210" class="feature"/><rect x="95" y="530" width="110" height="44" class="tag"/><text x="150" y="560" class="tagtxt">특징</text>
+  <text x="95" y="610" class="small">• 단일 단계</text><text x="95" y="650" class="small">• 빠른 응답 생성</text><text x="95" y="690" class="small">• 요약, 초안 작성, 간단한 질의응답에 적합</text><text x="95" y="730" class="small">• 외부 도구 사용 제한적</text>
+  <rect x="600" y="120" width="760" height="700" class="panel"/><rect x="600" y="120" width="760" height="70" class="head"/><text x="980" y="165" class="headtxt">AI Agent 기반 서비스</text>
+  <rect x="630" y="255" width="105" height="140" class="box"/><text x="682" y="315" class="icon">🎯</text><text x="682" y="370" class="label" style="font-size:20px">사용자 목표</text>
+  <line x1="735" y1="325" x2="770" y2="325" class="line"/><rect x="775" y="255" width="105" height="140" class="box"/><text x="827" y="315" class="icon">🤖</text><text x="827" y="370" class="label">Agent</text>
+  <line x1="880" y1="325" x2="915" y2="325" class="line"/><rect x="920" y="255" width="105" height="140" class="box"/><text x="972" y="315" class="icon">📋</text><text x="972" y="370" class="label" style="font-size:20px">계획 수립</text>
+  <line x1="1025" y1="325" x2="1060" y2="325" class="line"/><rect x="1065" y="230" width="175" height="190" class="dash"/><text x="1152" y="260" class="label" style="font-size:18px">외부 도구</text><text x="1105" y="310" class="small">문서 검색</text><text x="1105" y="350" class="small">도구 호출</text><text x="1105" y="390" class="small">데이터 조회</text><text x="1105" y="415" class="small">코드 실행</text>
+  <line x1="1240" y1="325" x2="1270" y2="325" class="line"/><rect x="1275" y="255" width="70" height="140" class="box"/><text x="1310" y="315" class="icon">✅</text><text x="1310" y="365" class="label" style="font-size:18px">결과</text><text x="1310" y="390" class="label" style="font-size:18px">검토</text>
+  <rect x="630" y="560" width="700" height="210" class="feature"/><rect x="655" y="530" width="110" height="44" class="tag"/><text x="710" y="560" class="tagtxt">특징</text>
+  <text x="655" y="610" class="small">• 다단계 처리</text><text x="655" y="650" class="small">• 목표 중심 수행</text><text x="655" y="690" class="small">• 외부 도구 활용 가능</text><text x="655" y="730" class="small">• 검토 및 재시도 가능</text><text x="980" y="610" class="small">• 업무 자동화, 분석, 문서 QA 등에 적합</text>
+  <rect x="230" y="835" width="940" height="45" fill="#eef5ff" stroke="#1e5bb8" stroke-width="2" rx="12"/><text x="700" y="866" class="label" style="font-size:24px">LLM 서비스는 응답 생성 중심, AI Agent 서비스는 목표 수행 중심</text>
+</svg>
