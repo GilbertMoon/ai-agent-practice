@@ -49,9 +49,28 @@ def validate_format(answer: str) -> dict[str, bool]:
     }
 
 
-def compare_live(pair: PromptPair, client: ChatClient) -> list[tuple[str, object]]:
-    # Exactly two calls at most; stop on first failure.
-    return [("basic", client.ask(pair.basic)), ("structured", client.ask(pair.structured))]
+def compare_live(
+    pair: PromptPair, client: ChatClient, on_result=None
+) -> list[tuple[str, object]]:
+    """Call at most twice; surface each successful result before the next call."""
+    results = []
+    for name, prompt in (("basic", pair.basic), ("structured", pair.structured)):
+        reply = client.ask(prompt)
+        results.append((name, reply))
+        if on_result is not None:
+            on_result(name, reply)
+    return results
+
+
+def print_live_result(name: str, reply) -> None:
+    print(f"\n=== 실제 모델 응답: {name} ===")
+    print(reply.text)
+    print(
+        f"[model={reply.model}; input={reply.input_tokens}; "
+        f"output={reply.output_tokens}; cached_input={reply.cached_input_tokens}]"
+    )
+    if name == "structured":
+        print(f"형식 검사(문자열 포함 여부): {validate_format(reply.text)}")
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -75,15 +94,7 @@ def main(argv: list[str] | None = None) -> int:
     try:
         load_local_env()
         client = make_client("live")
-        for name, reply in compare_live(pair, client):
-            print(f"\n=== 실제 모델 응답: {name} ===")
-            print(reply.text)
-            print(
-                f"[model={reply.model}; input={reply.input_tokens}; "
-                f"output={reply.output_tokens}; cached_input={reply.cached_input_tokens}]"
-            )
-            if name == "structured":
-                print(f"형식 검사(문자열 포함 여부): {validate_format(reply.text)}")
+        compare_live(pair, client, on_result=print_live_result)
     except (ValueError, RuntimeError) as exc:
         print(f"설정 오류: {exc}")
         return 2
