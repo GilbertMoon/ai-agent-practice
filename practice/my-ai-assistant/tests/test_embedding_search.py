@@ -87,8 +87,8 @@ class EmbeddingSearchTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             (root / ".env").write_text(
-                "OPENAI_API_KEY=TEST_ONLY_NOT_REAL\\n"
-                "OPENAI_EMBEDDING_MODEL=embedding-fixture-model\\n",
+                "OPENAI_API_KEY=TEST_ONLY_NOT_REAL\n"
+                "OPENAI_EMBEDDING_MODEL=embedding-fixture-model\n",
                 encoding="utf-8",
             )
             with patch.object(foundation_main, "__file__", str(root / "main.py")):
