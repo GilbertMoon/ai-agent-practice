@@ -62,3 +62,22 @@ python -m unittest discover -s tests -v
 `chat_loop.py`는 기존 `main.py`의 Mock/OpenAI 클라이언트를 재사용합니다. `exit` 또는 `quit`로 종료합니다. 각 질문은 **독립 요청**으로 처리하며 현재는 과거 질문을 다음 요청에 전달하지 않습니다. API Key 설정이 완료되었다면 `python chat_loop.py --mode live`를 실행할 수 있으나, **입력한 질문마다 API 요금이 발생할 수 있습니다**.
 
 강의안은 별도 비공개 강의 저장소에서 관리하고, 학생에게 공개할 코드·이미지는 이 공개 저장소에 배포합니다.
+
+## Lesson 03 — Prompt & Context 비교
+
+```powershell
+python prompt_compare.py "AI Agent와 챗봇의 차이는?"
+python prompt_compare.py "과제 제출 시간은?" --context "수업 공지: 과제는 금요일 오후 6시까지 제출합니다."
+```
+
+기본값 `preview`는 프롬프트 구성만 표시하고 API를 호출하지 않습니다. `--mode live`는 기본·구조화 프롬프트 **최대 2회**의 OpenAI API 호출을 수행하므로 비용이 발생할 수 있습니다.
+
+## Lesson 04 — 문서 검색과 근거 기반 답변
+
+```powershell
+python document_qa.py "과제 제출 기한은 언제인가요?"
+python document_qa.py "우주선 연료는 무엇인가요?"
+python -m unittest discover -s tests -v
+```
+
+`data/lesson04_notice.md`에서 단순 키워드로 관련 문단을 찾습니다. 검색 결과는 **문서 원문이지 AI 생성 답변이 아닙니다**. 기본 `preview`는 API 키 없이 실행됩니다. 근거가 없는 질문은 `--mode live`에서도 **API 호출 0회**로 답변을 보류합니다. 실제 근거 기반 모델 답변은 `python document_qa.py "과제 제출 기한은 언제인가요?" --mode live`로 선택적으로 실행할 수 있으며 API 요금이 발생할 수 있습니다.
