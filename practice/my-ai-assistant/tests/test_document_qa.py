@@ -67,10 +67,10 @@ class DocumentQATests(unittest.TestCase):
         # even if credentials exist on the user's machine.
         with tempfile.TemporaryDirectory() as temp_dir:
             doc = Path(temp_dir) / "notice.md"
-            doc.write_text("# 공지\\n\\n## 과제 제출\\n금요일 오후 6시까지 제출합니다.\\n", encoding="utf-8")
+            doc.write_text("# 공지\n\n## 과제 제출\n금요일 오후 6시까지 제출합니다.\n", encoding="utf-8")
             output = io.StringIO()
-            with patch("document_qa.load_local_env") as load_env, \\
-                 patch("document_qa.make_client", side_effect=AssertionError("API_CLIENT_FORBIDDEN")) as make, \\
+            with patch("document_qa.load_local_env") as load_env, \
+                 patch("document_qa.make_client", side_effect=AssertionError("API_CLIENT_FORBIDDEN")) as make, \
                  contextlib.redirect_stdout(output):
                 result = document_qa_main([
                     "우주선 연료는 무엇인가요?", "--mode", "live",
