@@ -7,3 +7,6 @@ __pycache__/
 
 # 개인 프로젝트 목표 문서 (학생별 개인 파일)
 MY_ASSISTANT_GOAL.md
+
+# Lesson 06: local Chroma index (student-generated data)
+.chroma_lesson06/
