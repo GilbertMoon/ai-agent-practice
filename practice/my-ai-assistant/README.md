@@ -81,3 +81,16 @@ python -m unittest discover -s tests -v
 ```
 
 `data/lesson04_notice.md`에서 단순 키워드로 관련 문단을 찾습니다. 검색 결과는 **문서 원문이지 AI 생성 답변이 아닙니다**. 기본 `preview`는 API 키 없이 실행됩니다. 근거가 없는 질문은 `--mode live`에서도 **API 호출 0회**로 답변을 보류합니다. 실제 근거 기반 모델 답변은 `python document_qa.py "과제 제출 기한은 언제인가요?" --mode live`로 선택적으로 실행할 수 있으며 API 요금이 발생할 수 있습니다.
+
+## Lesson 05 — 키워드 검색과 벡터 유사도 비교
+
+기본 모드는 **수동으로 정의한 학습용 벡터 Fixture**입니다. 실제 모델 임베딩이나 AI 의미 이해를 증명하지 않습니다.
+
+```powershell
+python document_qa.py "마감일"
+python embedding_search.py "마감일"
+python embedding_search.py "문의 게시판"
+python -m unittest discover -s tests -v
+```
+
+OpenAI Embeddings API의 실측 결과를 별도로 확인하려면 로컬 `.env`에 `OPENAI_API_KEY`와 사용 가능한 **임베딩 전용** `OPENAI_EMBEDDING_MODEL`을 설정한 뒤 `python embedding_search.py "마감일" --mode live`를 명시적으로 실행합니다. 이때 질문과 문단을 전송하고 API 사용량에 따라 별도 요금이 발생할 수 있습니다. 기본 Fixture는 API 호출이 없습니다.
