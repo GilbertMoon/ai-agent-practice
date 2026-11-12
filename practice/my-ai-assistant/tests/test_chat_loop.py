@@ -52,7 +52,7 @@ class ChatLoopTests(unittest.TestCase):
     def test_eof_exits(self):
         outputs = []
         serve(MockClient(), read=lambda p: (_ for _ in ()).throw(EOFError()), write=outputs.append)
-        self.assertIn("대화를 종료합니다.", outputs)
+        self.assertIn("대화를 종료합니다.", "\n".join(outputs))
 
 
 if __name__ == "__main__":
