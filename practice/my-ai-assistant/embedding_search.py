@@ -104,7 +104,12 @@ def main(argv: list[str] | None = None) -> int:
             vectors = live_vectors([args.question]+[name+" "+body for name,body in sections], model)
             query_vector, paragraph_vectors = vectors[0], vectors[1:]
             print("\n[LIVE] OpenAI Embeddings API 결과, 사용 모델: "+model)
-        except (ValueError, ImportError) as exc:
+        except ValueError as exc:
+            # ValueError messages are authored in this module and contain
+            # only setting names, never key values.
+            print(f"설정 오류: {exc}")
+            return 2
+        except ImportError as exc:
             print(f"설정 오류: {type(exc).__name__}")
             return 2
         except Exception as exc:
