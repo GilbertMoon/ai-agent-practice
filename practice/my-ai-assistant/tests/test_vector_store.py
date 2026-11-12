@@ -1,5 +1,6 @@
 """Lesson 06 offline integration tests: real persistent Chroma, no provider API."""
 import contextlib
+import gc
 import io
 import os
 import sys
@@ -18,7 +19,16 @@ class VectorStoreTests(unittest.TestCase):
     def setUp(self):
         self.temp = tempfile.TemporaryDirectory()
         self.addCleanup(self.temp.cleanup)
+        # Chroma 1.x keeps SQLite/HNSW file handles in a shared client cache.
+        # unittest runs cleanups LIFO: release handles before removing temp dir.
+        self.addCleanup(self._release_chroma)
         self.folder = Path(self.temp.name)
+
+    @staticmethod
+    def _release_chroma():
+        from chromadb.api.client import SharedSystemClient
+        SharedSystemClient.clear_system_cache()
+        gc.collect()
 
     def test_fixture_index_stores_three_sections(self):
         collection = get_collection(create_client(self.folder), "fixture")
