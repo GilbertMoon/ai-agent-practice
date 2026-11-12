@@ -94,3 +94,27 @@ python -m unittest discover -s tests -v
 ```
 
 OpenAI Embeddings API의 실측 결과를 별도로 확인하려면 로컬 `.env`에 `OPENAI_API_KEY`와 사용 가능한 **임베딩 전용** `OPENAI_EMBEDDING_MODEL`을 설정한 뒤 `python embedding_search.py "마감일" --mode live`를 명시적으로 실행합니다. 이때 질문과 문단을 전송하고 API 사용량에 따라 별도 요금이 발생할 수 있습니다. 기본 Fixture는 API 호출이 없습니다.
+
+## Lesson 06 — Chroma 영속 벡터 저장소
+
+Lesson 05의 벡터 검색 결과를 Chroma 컬렉션에 저장하고, **별도의 프로세스에서 다시 열어 검색**합니다.
+
+```powershell
+python -m pip install -r requirements-lesson06.txt
+python vector_store.py index
+python vector_store.py count
+python vector_store.py query "마감일"
+python -m unittest discover -s tests -v
+```
+
+기본 Fixture는 수동 정의한 3차원 학습 벡터를 사용하며 **외부 API 요청을 보내지 않습니다.** Chroma의 자동 임베딩도 비활성화됩니다. 로컬 저장 폴더 `.chroma_lesson06/`는 Git에서 제외됩니다.
+
+선택적 OpenAI Live 모드는 로컬 `.env`의 `OPENAI_API_KEY`, `OPENAI_EMBEDDING_MODEL=text-embedding-3-small` 설정을 사용합니다.
+
+```powershell
+python vector_store.py index --mode live
+python vector_store.py count --mode live
+python vector_store.py query "마감일" --mode live
+```
+
+**Live index와 Live query는 각각 임베딩 API 요청이 발생할 수 있습니다.** 모델을 바꿀 경우 기존 Live 컬렉션의 벡터와 혼용하지 마세요. 이번 실습은 조회 결과의 `distance`가 코사인 **유사도**가 아닌 코사인 **거리**라는 점도 확인합니다.
