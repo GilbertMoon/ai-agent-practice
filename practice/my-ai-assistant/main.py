@@ -155,7 +155,7 @@ def load_local_env() -> None:
             continue
         key, value = line.split("=", 1)
         key = key.strip()
-        if key in {"OPENAI_API_KEY", "OPENAI_MODEL", "GEMINI_API_KEY", "GEMINI_MODEL_NAME"}:
+        if key in {"OPENAI_API_KEY", "OPENAI_MODEL", "OPENAI_EMBEDDING_MODEL", "GEMINI_API_KEY", "GEMINI_MODEL_NAME"}:
             os.environ.setdefault(key, value.strip().strip('"').strip("'"))
 
 
