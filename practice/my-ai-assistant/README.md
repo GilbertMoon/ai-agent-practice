@@ -50,3 +50,15 @@ python main.py --mode live --fallback gemini "안녕하세요. 한 문장으로 
 - Gemini만 단독으로 호출하려면 `--provider gemini`를 사용합니다.
 
 **검증 기준:** Mock 테스트, API Key/Model 누락 테스트, 폴백 동작 테스트(가짜 클라이언트 사용, API 키 불필요), 실제 Live 응답과 Usage를 구분합니다. Live 검증 결과는 `docs/improvement/A3_FOUNDATION_IMPLEMENTATION_REPORT.md`에 기록합니다.
+
+## Lesson 02 — 반복 질문용 콘솔 프로그램
+
+```powershell
+Set-Location C:\dev\ai-agent-practice\practice\my-ai-assistant
+python chat_loop.py --mode mock
+python -m unittest discover -s tests -v
+```
+
+`chat_loop.py`는 기존 `main.py`의 Mock/OpenAI 클라이언트를 재사용합니다. `exit` 또는 `quit`로 종료합니다. 각 질문은 **독립 요청**으로 처리하며 현재는 과거 질문을 다음 요청에 전달하지 않습니다. API Key 설정이 완료되었다면 `python chat_loop.py --mode live`를 실행할 수 있으나, **입력한 질문마다 API 요금이 발생할 수 있습니다**.
+
+강의안은 별도 비공개 강의 저장소에서 관리하고, 학생에게 공개할 코드·이미지는 이 공개 저장소에 배포합니다.
