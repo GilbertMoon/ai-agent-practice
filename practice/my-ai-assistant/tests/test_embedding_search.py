@@ -6,12 +6,12 @@ import math
 import sys
 import unittest
 from pathlib import Path
-
-import main as foundation_main
 from unittest.mock import patch
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
+
+import main as foundation_main
 
 from embedding_search import (
     cosine_similarity, fixture_vector, rank_sections, live_vectors,
