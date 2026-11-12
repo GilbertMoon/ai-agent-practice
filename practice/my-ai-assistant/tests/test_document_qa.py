@@ -1,13 +1,16 @@
+import contextlib
+import io
 import os
 import subprocess
 import sys
 import tempfile
 import unittest
 from pathlib import Path
+from unittest.mock import patch
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
-from document_qa import DEFAULT_DOC, NO_EVIDENCE, build_grounded_prompt, read_document, retrieve, split_sections, tokenize
+from document_qa import DEFAULT_DOC, NO_EVIDENCE, build_grounded_prompt, main as document_qa_main, read_document, retrieve, split_sections, tokenize
 
 
 class DocumentQATests(unittest.TestCase):
@@ -60,13 +63,34 @@ class DocumentQATests(unittest.TestCase):
         self.assertIn("[PREVIEW]", run.stdout)
 
     def test_cli_unknown_no_api_calls(self):
-        run = subprocess.run(
-            [sys.executable, str(ROOT / "document_qa.py"), "우주선 연료는 무엇인가요?", "--mode", "live"],
-            text=True, capture_output=True, encoding="utf-8",
-            env={**os.environ, "PYTHONIOENCODING": "utf-8"}, check=False)
-        self.assertEqual(run.returncode, 0, run.stderr)
-        self.assertIn(NO_EVIDENCE, run.stdout)
-        self.assertIn("api_calls=0", run.stdout)
+        # Patch the client constructor itself so this test cannot spend money,
+        # even if credentials exist on the user's machine.
+        with tempfile.TemporaryDirectory() as temp_dir:
+            doc = Path(temp_dir) / "notice.md"
+            doc.write_text("# 공지\\n\\n## 과제 제출\\n금요일 오후 6시까지 제출합니다.\\n", encoding="utf-8")
+            output = io.StringIO()
+            with patch("document_qa.load_local_env") as load_env, \\
+                 patch("document_qa.make_client", side_effect=AssertionError("API_CLIENT_FORBIDDEN")) as make, \\
+                 contextlib.redirect_stdout(output):
+                result = document_qa_main([
+                    "우주선 연료는 무엇인가요?", "--mode", "live",
+                    "--document", str(doc),
+                ])
+            self.assertEqual(result, 0)
+            self.assertIn(NO_EVIDENCE, output.getvalue())
+            self.assertIn("api_calls=0", output.getvalue())
+            load_env.assert_not_called()
+            make.assert_not_called()
+
+    def test_question_board_phrase_retrieves_section(self):
+        evidence = retrieve(self.document, "과제 관련 문의", DEFAULT_DOC.name)
+        self.assertTrue(evidence)
+        self.assertEqual(evidence[0].section, "질문 응대")
+        self.assertIn("질문 게시판", evidence[0].text)
+
+    def test_inflected_words_may_miss_keyword_match(self):
+        # Documents contain "문의는" and "게시판에", not bare exact tokens.
+        self.assertEqual(retrieve(self.document, "문의 게시판", DEFAULT_DOC.name), [])
 
     def test_missing_document_error(self):
         with self.assertRaises(FileNotFoundError):
