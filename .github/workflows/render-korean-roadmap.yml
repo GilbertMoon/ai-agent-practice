@@ -1,0 +1,43 @@
+name: Render existing Korean roadmap with CJK font
+on:
+  push:
+    paths:
+      - ".github/workflows/render-korean-roadmap.yml"
+      - "images/ai_agent_15_lesson_roadmap_ko.svg"
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - name: Install Korean fonts and SVG renderer
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y fonts-noto-cjk fontconfig
+          python -m pip install --disable-pip-version-check cairosvg
+          fc-match "Noto Sans CJK KR"
+      - name: Render existing SVG without changing its Korean text
+        run: |
+          python - <<'PY'
+          import cairosvg
+          cairosvg.svg2png(
+              url="images/ai_agent_15_lesson_roadmap_ko.svg",
+              write_to="images/ai_agent_15_lesson_roadmap_ko.png",
+          )
+          from PIL import Image
+          with Image.open("images/ai_agent_15_lesson_roadmap_ko.png") as im:
+              im.verify()
+          PY
+      - name: Commit corrected PNG only
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add images/ai_agent_15_lesson_roadmap_ko.png
+          if ! git diff --cached --quiet; then
+            git commit -m "fix(images): render Korean roadmap with CJK font"
+            git push
+          fi
