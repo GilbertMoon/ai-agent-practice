@@ -1,0 +1,18 @@
+[
+  {
+    "question": "과제 마감일",
+    "gold": "금요일 오후 6시"
+  },
+  {
+    "question": "API Key 보안",
+    "gold": "로컬 .env"
+  },
+  {
+    "question": "질문 게시판",
+    "gold": "질문 게시판"
+  },
+  {
+    "question": "우주선 연료 종류",
+    "gold": ""
+  }
+]
