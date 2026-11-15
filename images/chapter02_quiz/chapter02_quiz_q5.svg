@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720"><rect width="1280" height="720" fill="#f7faff"/>
+ <rect x="34" y="30" width="1212" height="660" rx="28" fill="#fff" stroke="#d5e2f4" stroke-width="3"/>
+ <rect x="62" y="60" width="112" height="60" rx="20" fill="#d52d3f"/><text x="92" y="100" fill="#fff" font-size="36" font-weight="700" font-family="Noto Sans CJK KR, Malgun Gothic, sans-serif">Q5</text>
+ <text x="202" y="104" fill="#13253f" font-size="49" font-weight="700" font-family="Noto Sans CJK KR, Malgun Gothic, sans-serif">{context}</text><text x="205" y="143" fill="#59728e" font-size="21" font-weight="500" font-family="Noto Sans CJK KR, Malgun Gothic, sans-serif">Prompt Placeholder</text>
+ <rect x="62" y="173" width="1155" height="70" rx="20" fill="#edf5ff"/><text x="89" y="222" fill="#13253f" font-size="34" font-weight="700" font-family="Noto Sans CJK KR, Malgun Gothic, sans-serif">검색 문서를 넣는 자리</text>
+ <rect x="72" y="285" width="530" height="190" rx="24" fill="#fff1f0" stroke="#f0bac0" stroke-width="3"/>
+ <rect x="682" y="285" width="530" height="190" rx="24" fill="#eaf3ff" stroke="#a8cafd" stroke-width="3"/>
+ <text x="106" y="352" fill="#bf2439" font-size="32" font-weight="700" font-family="Noto Sans CJK KR, Malgun Gothic, sans-serif">검색된 최신 공지</text><text x="106" y="407" fill="#13253f" font-size="28" font-weight="700" font-family="Noto Sans CJK KR, Malgun Gothic, sans-serif">참고 자료 가져오기</text>
+ <text x="716" y="352" fill="#236dbb" font-size="32" font-weight="700" font-family="Noto Sans CJK KR, Malgun Gothic, sans-serif">프롬프트 템플릿</text><text x="716" y="407" fill="#13253f" font-size="28" font-weight="700" font-family="Noto Sans CJK KR, Malgun Gothic, sans-serif">{context} 에 문서 삽입</text>
+ <path d="M615 380 L668 380 M650 363 L668 380 L650 397" stroke="#d52d3f" stroke-width="9" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+ <rect x="75" y="505" width="1135" height="77" rx="18" fill="#fff7e9" stroke="#f2d5a6"/><text x="103" y="539" fill="#b55d17" font-size="24" font-weight="700" font-family="Noto Sans CJK KR, Malgun Gothic, sans-serif">직관적 비유</text><text x="103" y="568" fill="#13253f" font-size="23" font-weight="700" font-family="Noto Sans CJK KR, Malgun Gothic, sans-serif">빈칸 양식에 참고 문서를 끼워 넣는 과정</text>
+ <rect x="75" y="607" width="1135" height="54" rx="16" fill="#183c69"/><text x="99" y="643" fill="#fff" font-size="26" font-weight="700" font-family="Noto Sans CJK KR, Malgun Gothic, sans-serif">핵심 정리  ·  {context}=참고 문서, {question}=사용자 질문</text>
+ </svg>
