@@ -118,9 +118,16 @@ def run_live(question: str) -> int:
         conversation.extend(items)
         calls = [item for item in items if getattr(item, "type", "") == "function_call"]
         if not calls:
+            answer = response.output_text or ""
+            status = getattr(response, "status", None)
+            incomplete = getattr(response, "incomplete_details", None)
+            if status == "incomplete" or incomplete is not None or not answer.strip():
+                print("[HOLD] 모델 응답이 비어 있거나 완료되지 않았습니다. 성공으로 판정하지 않습니다.")
+                print(f"[LIVE_INCOMPLETE] model={getattr(response, 'model', model)}; step={step}; status={status}")
+                return 4
             print("=== 모델 답변 ===")
-            print(response.output_text or "(텍스트 응답 없음)")
-            print(f"[LIVE] model={getattr(response, 'model', model)}; step={step}")
+            print(answer)
+            print(f"[LIVE] model={getattr(response, 'model', model)}; step={step}; status={status}")
             return 0
         if step == MAX_STEPS:
             print("[HOLD] 도구 호출 단계 상한에 도달했습니다. 추가 도구를 실행하지 않습니다.")
@@ -131,10 +138,13 @@ def run_live(question: str) -> int:
         for item in calls:
             request = ToolRequest(item.name, item.arguments, item.call_id)
             try:
+                # Validation errors must never be logged as successful executions.
                 result = dispatch(request)
             except ValueError as exc:
                 result = {"error": str(exc)}
-            print(f"[TOOL_EXECUTED] name={request.name}; call_id={request.call_id}")
+                print(f"[TOOL_REJECTED] name={request.name}; call_id={request.call_id}")
+            else:
+                print(f"[TOOL_EXECUTED] name={request.name}; call_id={request.call_id}")
             print("[TOOL_RESULT] " + json.dumps(result, ensure_ascii=False))
             conversation.append({
                 "type": "function_call_output", "call_id": request.call_id,
