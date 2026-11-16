@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 from dataclasses import dataclass
 from typing import Callable
 
@@ -36,8 +37,8 @@ def make_plan(scenario: str, a: int = 12, b: int = 30) -> Plan:
     steps = []
     if scenario in ("combined", "missing"):
         query = "과제 제출" if scenario == "combined" else "우주선 연료"
-        steps.append(Step("find_notice", {"query": query}, "found"))
-    if scenario in ("combined", "math"):
+        steps.append(Step("find_notice", {"query": query}, "deadline" if scenario == "combined" else "found"))
+    if scenario in ("combined", "missing", "math"):
         steps.append(Step("add_numbers", {"a": a, "b": b}, "sum"))
     if len(steps) > MAX_STEPS:
         raise ValueError("단계 상한 초과")
@@ -47,9 +48,17 @@ def make_plan(scenario: str, a: int = 12, b: int = 30) -> Plan:
 def verify(step: Step, result: dict) -> tuple[bool, str]:
     if not isinstance(result, dict) or "error" in result:
         return False, "도구 결과 형식 또는 오류"
-    if step.expected == "found":
+    if step.expected in ("found", "deadline"):
         if result.get("found") is not True or not result.get("source") or not result.get("text"):
             return False, "검색 근거 없음"
+        if step.expected == "deadline":
+            # This classroom fixture checks that the cited passage actually
+            # contains a submission deadline, not merely any search hit.
+            text = result["text"]
+            pattern = r"과제\s*제출\s*기한[^\n]{0,80}?(?:월|화|수|목|금|토|일)요일\s*(?:오전|오후)\s*\d{1,2}시"
+            if not isinstance(text, str) or not re.search(pattern, text):
+                return False, "과제 제출 기한 문구 미확인"
+            return True, "과제 제출 기한과 출처 확인(교육용 패턴 검증)"
         return True, "검색 근거와 출처 확인"
     if step.expected == "sum":
         expected = step.arguments["a"] + step.arguments["b"]
@@ -74,8 +83,12 @@ def execute_plan(plan: Plan, runner: Callable[[ToolRequest], dict] = dispatch) -
         status = "PASS" if ok else "FAIL"
         trace.append({"index": index, "tool": step.name, "status": status, "reason": reason, "result": result})
         if not ok:
-            return {"status": "HOLD", "completed": len(trace), "total": len(plan.steps), "trace": trace}
-    return {"status": "COMPLETED", "completed": len(trace), "total": len(plan.steps), "trace": trace}
+            return {"status": "HOLD", "completed": len(trace), "total": len(plan.steps),
+                    "trace": trace, "not_run": [
+                        {"index": i, "tool": pending.name}
+                        for i, pending in enumerate(plan.steps[len(trace):], start=len(trace) + 1)
+                    ]}
+    return {"status": "COMPLETED", "completed": len(trace), "total": len(plan.steps), "trace": trace, "not_run": []}
 
 
 def print_plan(plan: Plan) -> None:
@@ -92,6 +105,8 @@ def print_execution(report: dict) -> None:
             print(f"[EVIDENCE] found={result.get('found', False)}; source={result.get('source', '(none)')}")
         elif row["tool"] == "add_numbers":
             print(f"[RESULT] sum={result.get('sum', '(none)')}")
+    for pending in report.get("not_run", []):
+        print(f"[NOT_RUN] step={pending['index']}; tool={pending['tool']}; reason=선행 검증 실패")
     print(f"[FINAL] status={report['status']}; completed={report['completed']}/{report['total']}")
     print("[FIXTURE] 규칙 기반 계획·검증. 실제 모델 계획 아님; model_api_calls=0")
 
