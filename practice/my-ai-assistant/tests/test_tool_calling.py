@@ -4,7 +4,8 @@ import io
 import sys
 import unittest
 from pathlib import Path
-from unittest.mock import patch
+from unittest.mock import patch, MagicMock
+from types import SimpleNamespace
 
 ROOT=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT))
@@ -78,6 +79,62 @@ class ToolCallingTests(unittest.TestCase):
             self.assertEqual(main(["--list-tools"]),0)
         self.assertIn("add_numbers",out.getvalue())
         self.assertIn("find_notice",out.getvalue())
+
+
+    def _mock_live(self, replies):
+        """Mock the SDK so these tests never use real API credentials or network."""
+        from tool_calling import run_live
+        client = MagicMock()
+        client.responses.create.side_effect = replies
+        with patch.dict(sys.modules, {"openai": SimpleNamespace(OpenAI=lambda **kw: client)}):
+            with patch("tool_calling.load_local_env"):
+                with patch.dict("os.environ", {"OPENAI_API_KEY": "test-key", "OPENAI_MODEL": "test-model"}):
+                    with contextlib.redirect_stdout(io.StringIO()) as output:
+                        code = run_live("12와 30을 더해 주세요")
+        return code, output.getvalue(), client
+
+    def test_live_success_has_execution_evidence(self):
+        call = SimpleNamespace(type="function_call", name="add_numbers", arguments='{"a":12,"b":30}', call_id="a1")
+        code, output, client = self._mock_live([
+            SimpleNamespace(output=[call], output_text="", status="completed", incomplete_details=None, model="test"),
+            SimpleNamespace(output=[], output_text="42입니다.", status="completed", incomplete_details=None, model="test"),
+        ])
+        self.assertEqual(code, 0)
+        self.assertIn("[TOOL_EXECUTED] name=add_numbers", output)
+        self.assertNotIn("[TOOL_REJECTED]", output)
+        self.assertIn('"sum": 42', output)
+        self.assertEqual(client.responses.create.call_count, 2)
+
+    def test_live_rejected_name_has_no_execution_evidence(self):
+        call = SimpleNamespace(type="function_call", name="delete_file", arguments="{}", call_id="a2")
+        code, output, client = self._mock_live([
+            SimpleNamespace(output=[call], output_text="", status="completed", incomplete_details=None, model="test"),
+            SimpleNamespace(output=[], output_text="도구 거부", status="completed", incomplete_details=None, model="test"),
+        ])
+        self.assertEqual(code, 0)
+        self.assertIn("[TOOL_REJECTED] name=delete_file", output)
+        self.assertNotIn("[TOOL_EXECUTED]", output)
+
+    def test_live_invalid_json_arguments_rejected(self):
+        call = SimpleNamespace(type="function_call", name="add_numbers", arguments='{"a":true,"b":30}', call_id="a3")
+        code, output, _ = self._mock_live([
+            SimpleNamespace(output=[call], output_text="", status="completed", incomplete_details=None, model="test"),
+            SimpleNamespace(output=[], output_text="입력 오류", status="completed", incomplete_details=None, model="test"),
+        ])
+        self.assertEqual(code, 0)
+        self.assertIn("[TOOL_REJECTED]", output)
+        self.assertNotIn("[TOOL_EXECUTED]", output)
+
+    def test_live_incomplete_or_blank_response_holds(self):
+        examples = [("completed", "", None), ("incomplete", "미완성", {"reason": "max_output_tokens"})]
+        for status, answer, details in examples:
+            with self.subTest(status=status, answer=answer):
+                code, output, _ = self._mock_live([
+                    SimpleNamespace(output=[], output_text=answer, status=status, incomplete_details=details, model="test"),
+                ])
+                self.assertEqual(code, 4)
+                self.assertIn("[LIVE_INCOMPLETE]", output)
+                self.assertIn("[HOLD]", output)
 
 
 if __name__=="__main__":
