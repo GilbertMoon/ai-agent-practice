@@ -14,6 +14,10 @@ RESOURCE_URI = "lesson10://public-notice"
 ALLOW = {"add_numbers", "find_notice"}
 
 
+class ToolResultError(Exception):
+    """MCP transport succeeded, but the returned Tool result was an error."""
+
+
 async def run(action: str, a: int, b: int, query: str, topic: str) -> None:
     from mcp import ClientSession, StdioServerParameters
     from mcp.client.stdio import stdio_client
@@ -30,11 +34,19 @@ async def run(action: str, a: int, b: int, query: str, topic: str) -> None:
                 result = await session.call_tool("add_numbers", arguments={"a": a, "b": b})
                 print("[MCP_CALL] add_numbers")
                 print("[MCP_RESULT] " + str(result.structuredContent or result.content))
+                if result.isError:
+                    print("[MCP_TOOL_ERROR] 도구가 오류 결과를 반환했습니다. 통신 성공과 작업 성공은 다릅니다.")
+                    raise ToolResultError("MCP Tool failed")
+                print("[MCP_TOOL_OK] 정상 도구 결과")
                 return
             if action == "search":
                 result = await session.call_tool("find_notice", arguments={"query": query})
                 print("[MCP_CALL] find_notice")
                 print("[MCP_RESULT] " + str(result.structuredContent or result.content))
+                if result.isError:
+                    print("[MCP_TOOL_ERROR] 도구가 오류 결과를 반환했습니다. 통신 성공과 작업 성공은 다릅니다.")
+                    raise ToolResultError("MCP Tool failed")
+                print("[MCP_TOOL_OK] 정상 도구 결과")
                 return
             if action == "resource":
                 result = await session.read_resource(RESOURCE_URI)
@@ -71,6 +83,9 @@ def main(argv: list[str] | None = None) -> int:
     except ValueError as exc:
         print(f"설정 오류: {exc}")
         return 2
+    except ToolResultError:
+        print("[MCP] Tool 실행 실패; model_api_calls=0")
+        return 4
     except ImportError:
         print("설정 오류: MCP SDK가 없습니다. requirements-lesson10.txt를 설치하세요.")
         return 2
