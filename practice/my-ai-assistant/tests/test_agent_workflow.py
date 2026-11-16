@@ -29,9 +29,35 @@ class AgentWorkflowTests(unittest.TestCase):
         self.assertEqual([x["status"] for x in report["trace"]], ["PASS", "PASS"])
 
     def test_missing_evidence_holds(self):
-        report = execute_plan(make_plan("missing"))
+        plan = make_plan("missing")
+        self.assertEqual([step.name for step in plan.steps], ["find_notice", "add_numbers"])
+        report = execute_plan(plan)
         self.assertEqual(report["status"], "HOLD")
         self.assertIn("근거", report["trace"][0]["reason"])
+        self.assertEqual(report["completed"], 1)
+        self.assertEqual(report["total"], 2)
+        self.assertEqual(report["not_run"], [{"index": 2, "tool": "add_numbers"}])
+
+    def test_deadline_needs_actual_time_phrase_not_just_a_search_hit(self):
+        step = make_plan("combined").steps[0]
+        fake_hit = {"found": True, "source": "lesson04_notice.md",
+                    "text": "과제 제출 방법은 LMS에 안내합니다."}
+        passed, reason = verify(step, fake_hit)
+        self.assertFalse(passed)
+        self.assertIn("기한", reason)
+
+    def test_deadline_accepts_real_fixture_sentence(self):
+        step = make_plan("combined").steps[0]
+        correct = {"found": True, "source": "lesson04_notice.md",
+                   "text": "이번 주 과제 제출 기한은 금요일 오후 6시입니다."}
+        self.assertTrue(verify(step, correct)[0])
+
+    def test_failed_search_has_not_run_trace_output(self):
+        from agent_workflow import print_execution
+        with contextlib.redirect_stdout(io.StringIO()) as output:
+            print_execution(execute_plan(make_plan("missing")))
+        self.assertIn("[NOT_RUN] step=2; tool=add_numbers", output.getvalue())
+        self.assertIn("status=HOLD; completed=1/2", output.getvalue())
 
     def test_math_finishes(self):
         report = execute_plan(make_plan("math", -5, 7))
