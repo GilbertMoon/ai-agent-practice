@@ -1,4 +1,4 @@
-"""Lesson 10 independent offline tests, no MCP server or API required."""
+"""Lesson 10 offline unit tests; real stdio sessions tested separately."""
 import contextlib
 import io
 import sys
@@ -10,7 +10,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 from mcp_lesson10_logic import add_numbers, find_notice, public_notice, lesson_prompt
 from mcp_lesson10_fixture import main as fixture_main
-from mcp_lesson10_client import main as client_main, SERVER
+from mcp_lesson10_client import main as client_main, SERVER, ToolResultError
 
 
 class MCPBasicsTests(unittest.TestCase):
@@ -60,6 +60,13 @@ class MCPBasicsTests(unittest.TestCase):
     def test_client_rejects_invalid_before_mcp(self):
         with contextlib.redirect_stdout(io.StringIO()):
             self.assertEqual(client_main(["add", "--a", "100001"]), 2)
+
+    def test_client_tool_result_error_is_failure_not_success(self):
+        with patch("mcp_lesson10_client.run", side_effect=ToolResultError("tool rejected")):
+            with contextlib.redirect_stdout(io.StringIO()) as output:
+                self.assertEqual(client_main(["add"]), 4)
+        self.assertIn("Tool 실행 실패", output.getvalue())
+        self.assertNotIn("통신 완료", output.getvalue())
 
     def test_fixture_lists_three_primitives(self):
         with contextlib.redirect_stdout(io.StringIO()) as output:
