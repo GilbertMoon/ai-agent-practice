@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" role="img" aria-labelledby="t d">
+<title id="t">코사인 유사도: 화살표의 방향을 비교합니다</title><desc id="d">같은 방향 유사도 1, 직각 유사도 0, 반대 방향 유사도 -1을 세 패널로 시각화한 교육용 개념도</desc>
+<rect width="1280" height="720" fill="#f5f8fe"/><rect x="44" y="37" width="1192" height="646" rx="30" fill="#ffffff" stroke="#d6e3f3" stroke-width="3"/>
+<text x="78" y="105" font-family="Malgun Gothic, Noto Sans CJK KR, sans-serif" fill="#173456" font-size="46" font-weight="800">코사인 유사도는 화살표의 방향을 비교합니다</text>
+<text x="80" y="154" font-family="Malgun Gothic, Noto Sans CJK KR, sans-serif" fill="#586e88" font-size="26">길이가 달라도 방향이 같으면 유사도 1 · 방향이 직각이면 0 · 반대면 -1</text>
+<g font-family="Malgun Gothic, Noto Sans CJK KR, sans-serif" font-weight="700">
+<rect x="78" y="196" width="342" height="360" rx="22" fill="#eff7ff" stroke="#9ec6f4" stroke-width="2"/>
+<text x="110" y="252" font-size="29" fill="#2362a3">① 같은 방향</text><text x="110" y="291" font-size="22" fill="#2362a3">유사도 = 1</text>
+<line x1="170" y1="480" x2="320" y2="480" stroke="#afc1d5" stroke-width="3"/><line x1="170" y1="480" x2="170" y2="332" stroke="#afc1d5" stroke-width="3"/>
+<line x1="170" y1="480" x2="260" y2="390" stroke="#2579cb" stroke-width="8" stroke-linecap="round"/><polygon points="260,390 241,397 254,410" fill="#2579cb"/>
+<line x1="170" y1="480" x2="316" y2="334" stroke="#32a173" stroke-width="8" stroke-linecap="round"/><polygon points="316,334 296,340 310,355" fill="#32a173"/>
+<rect x="469" y="196" width="342" height="360" rx="22" fill="#f0faf4" stroke="#9cd5b6" stroke-width="2"/>
+<text x="501" y="252" font-size="29" fill="#28835b">② 직각</text><text x="501" y="291" font-size="22" fill="#28835b">유사도 = 0</text>
+<line x1="562" y1="480" x2="747" y2="480" stroke="#afc1d5" stroke-width="3"/><line x1="562" y1="480" x2="562" y2="326" stroke="#afc1d5" stroke-width="3"/>
+<line x1="562" y1="480" x2="716" y2="480" stroke="#2579cb" stroke-width="8" stroke-linecap="round"/><polygon points="716,480 696,470 696,490" fill="#2579cb"/>
+<line x1="562" y1="480" x2="562" y2="339" stroke="#32a173" stroke-width="8" stroke-linecap="round"/><polygon points="562,339 551,359 573,359" fill="#32a173"/>
+<path d="M562 452 H591 V480" fill="none" stroke="#76879a" stroke-width="3"/>
+<rect x="860" y="196" width="342" height="360" rx="22" fill="#fff3f2" stroke="#efb1b1" stroke-width="2"/>
+<text x="892" y="252" font-size="29" fill="#b34e4e">③ 반대 방향</text><text x="892" y="291" font-size="22" fill="#b34e4e">유사도 = -1</text>
+<line x1="886" y1="440" x2="1171" y2="440" stroke="#afc1d5" stroke-width="3"/><line x1="1029" y1="440" x2="1029" y2="329" stroke="#afc1d5" stroke-width="3"/>
+<line x1="1029" y1="440" x2="1154" y2="440" stroke="#2579cb" stroke-width="8" stroke-linecap="round"/><polygon points="1154,440 1134,430 1134,450" fill="#2579cb"/>
+<line x1="1029" y1="440" x2="904" y2="440" stroke="#d16d6d" stroke-width="8" stroke-linecap="round"/><polygon points="904,440 924,430 924,450" fill="#d16d6d"/>
+</g>
+<rect x="78" y="579" width="1124" height="68" rx="17" fill="#19395f"/><text x="102" y="624" font-family="Malgun Gothic, Noto Sans CJK KR, sans-serif" fill="#fff" font-size="25" font-weight="700">주의: 방향의 유사함 ≠ 답변의 정확함 · 두 벡터는 같은 차원이어야 합니다</text>
+</svg>
