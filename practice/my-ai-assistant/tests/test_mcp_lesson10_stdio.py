@@ -1,6 +1,7 @@
 """Lesson 10 MCP stdio integration tests: real local MCP subprocess, no LLM API.
 
-Requires the pinned MCP Python SDK (requirements-lesson10.txt).
+Requires an MCP Python SDK 1.x within the allowed range in requirements-lesson10.txt
+(mcp>=1.10,<2; a range, not a single pinned version).
 Unlike test_mcp_lesson10.py, these tests actually initialize an MCP session.
 """
 import importlib.util
