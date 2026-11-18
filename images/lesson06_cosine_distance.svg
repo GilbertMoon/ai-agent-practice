@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" width="1200" height="675" role="img" aria-labelledby="t d"><title id="t">코사인 유사도와 코사인 거리</title><desc id="d">같은 방향은 유사도 1 거리 0, 직각은 유사도 0 거리 1, 반대 방향은 유사도 -1 거리 2입니다. 코사인 거리는 1에서 코사인 유사도를 뺀 값이며 pgvector의 &lt;=&gt; 연산자가 계산합니다.</desc><defs><marker id="ah2f6db5" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#2f6db5"/></marker><marker id="ahc27a2c" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#c27a2c"/></marker></defs>
+<rect x="0" y="0" width="1200" height="675" rx="0" fill="#f7f9fe"/>
+<text x="52" y="62" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',Arial,sans-serif" font-size="34" font-weight="bold" fill="#183454" text-anchor="start">코사인 유사도와 코사인 거리</text>
+<text x="52" y="100" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',Arial,sans-serif" font-size="19" font-weight="normal" fill="#375777" text-anchor="start">5강의 유사도는 클수록 가깝고, 6강 pgvector의 거리 &lt;=&gt;는 작을수록 가깝습니다.</text>
+<rect x="40" y="126" width="360" height="330" rx="18" fill="#e9f6ee" stroke="#5d9f78" stroke-width="3"/>
+<text x="220" y="166" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',Arial,sans-serif" font-size="24" font-weight="bold" fill="#22643c" text-anchor="middle">같은 방향</text>
+<circle cx="220" cy="300" r="5" fill="#183454"/>
+<line x1="220" y1="300" x2="330" y2="300" stroke="#2f6db5" stroke-width="5" marker-end="url(#ah2f6db5)"/>
+<text x="338" y="307" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',Arial,sans-serif" font-size="20" font-weight="bold" fill="#2f6db5" text-anchor="start">A</text>
+<line x1="220" y1="284" x2="330" y2="284" stroke="#c27a2c" stroke-width="5" marker-end="url(#ahc27a2c)"/>
+<text x="338" y="276" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',Arial,sans-serif" font-size="20" font-weight="bold" fill="#c27a2c" text-anchor="start">B</text>
+<text x="220" y="392" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',Arial,sans-serif" font-size="21" font-weight="bold" fill="#183454" text-anchor="middle">코사인 유사도 = 1</text>
+<text x="220" y="428" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',Arial,sans-serif" font-size="21" font-weight="bold" fill="#22643c" text-anchor="middle">코사인 거리 = 0</text>
+<rect x="420" y="126" width="360" height="330" rx="18" fill="#fff7e6" stroke="#d9a441" stroke-width="3"/>
+<text x="600" y="166" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',Arial,sans-serif" font-size="24" font-weight="bold" fill="#7a5200" text-anchor="middle">직각 방향</text>
+<circle cx="600" cy="300" r="5" fill="#183454"/>
+<line x1="600" y1="300" x2="710" y2="300" stroke="#2f6db5" stroke-width="5" marker-end="url(#ah2f6db5)"/>
+<text x="718" y="307" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',Arial,sans-serif" font-size="20" font-weight="bold" fill="#2f6db5" text-anchor="start">A</text>
+<line x1="600" y1="300" x2="600.0" y2="190.0" stroke="#c27a2c" stroke-width="5" marker-end="url(#ahc27a2c)"/>
+<text x="612.0" y="210.0" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',Arial,sans-serif" font-size="20" font-weight="bold" fill="#c27a2c" text-anchor="start">B</text>
+<text x="600" y="392" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',Arial,sans-serif" font-size="21" font-weight="bold" fill="#183454" text-anchor="middle">코사인 유사도 = 0</text>
+<text x="600" y="428" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',Arial,sans-serif" font-size="21" font-weight="bold" fill="#7a5200" text-anchor="middle">코사인 거리 = 1</text>
+<rect x="800" y="126" width="360" height="330" rx="18" fill="#fdeeee" stroke="#d98c8c" stroke-width="3"/>
+<text x="980" y="166" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',Arial,sans-serif" font-size="24" font-weight="bold" fill="#8c2f2f" text-anchor="middle">반대 방향</text>
+<circle cx="980" cy="300" r="5" fill="#183454"/>
+<line x1="980" y1="300" x2="1090" y2="300" stroke="#2f6db5" stroke-width="5" marker-end="url(#ah2f6db5)"/>
+<text x="1098" y="307" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',Arial,sans-serif" font-size="20" font-weight="bold" fill="#2f6db5" text-anchor="start">A</text>
+<line x1="980" y1="300" x2="870.0" y2="300.0" stroke="#c27a2c" stroke-width="5" marker-end="url(#ahc27a2c)"/>
+<text x="856.0" y="307.0" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',Arial,sans-serif" font-size="20" font-weight="bold" fill="#c27a2c" text-anchor="end">B</text>
+<text x="980" y="392" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',Arial,sans-serif" font-size="21" font-weight="bold" fill="#183454" text-anchor="middle">코사인 유사도 = −1</text>
+<text x="980" y="428" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',Arial,sans-serif" font-size="21" font-weight="bold" fill="#8c2f2f" text-anchor="middle">코사인 거리 = 2</text>
+<rect x="40" y="476" width="1120" height="132" rx="16" fill="#ffffff" stroke="#9fbde6" stroke-width="2"/>
+<text x="600" y="514" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',Arial,sans-serif" font-size="26" font-weight="bold" fill="#234b85" text-anchor="middle">코사인 거리 = 1 − 코사인 유사도</text>
+<text x="600" y="552" font-family="Consolas,'D2Coding','Courier New',monospace" font-size="18" font-weight="normal" fill="#183454" text-anchor="middle">SELECT … embedding &lt;=&gt; '[1,0,0]'::vector AS cosine_distance … ORDER BY cosine_distance</text>
+<text x="600" y="588" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',Arial,sans-serif" font-size="18" font-weight="normal" fill="#536174" text-anchor="middle">거리가 작은 문단부터 정렬됩니다 (STEP 02 · STEP 05 · lesson06_pgvector.py의 distance)</text>
+<text x="600.0" y="649" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',Arial,sans-serif" font-size="17" font-weight="normal" fill="#536174" text-anchor="middle">개념 설명용 예시입니다 · 거리는 정답 확률이나 신뢰도가 아니며, 실제 측정값은 각자 실행 결과로 기록합니다</text>
+</svg>

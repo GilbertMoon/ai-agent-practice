@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" width="1200" height="675" role="img" aria-labelledby="t d"><title id="t">ChromaDB와 PostgreSQL + pgvector 비교</title><desc id="d">ChromaDB는 Collection 중심의 벡터 데이터베이스이고, pgvector는 PostgreSQL 테이블에 vector 타입과 거리 연산을 더하는 확장입니다. 두 방식 모두 문서, 메타데이터, 벡터를 저장하고 가까운 벡터를 검색합니다.</desc><defs></defs>
+<rect x="0" y="0" width="1200" height="675" rx="0" fill="#f7f9fe"/>
+<text x="52" y="62" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',Arial,sans-serif" font-size="34" font-weight="bold" fill="#183454" text-anchor="start">ChromaDB와 PostgreSQL + pgvector</text>
+<text x="52" y="100" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',Arial,sans-serif" font-size="19" font-weight="normal" fill="#375777" text-anchor="start">같은 목적(벡터 저장·검색), 다른 구조 — 어느 한쪽이 항상 우월하다는 뜻은 아닙니다.</text>
+<rect x="40" y="128" width="540" height="382" rx="18" fill="#fff3e8" stroke="#d99a61" stroke-width="3"/>
+<text x="310" y="172" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',Arial,sans-serif" font-size="24" font-weight="bold" fill="#8a4f12" text-anchor="middle">ChromaDB — Collection 중심</text>
+<rect x="62" y="200" width="496" height="50" rx="10" fill="#ffffff"/>
+<text x="78" y="232" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',Arial,sans-serif" font-size="18" font-weight="bold" fill="#8a4f12" text-anchor="start">저장 단위</text>
+<text x="190" y="232" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',Arial,sans-serif" font-size="18" font-weight="normal" fill="#183454" text-anchor="start">Collection (문서 묶음)</text>
+<rect x="62" y="260" width="496" height="50" rx="10" fill="#ffffff"/>
+<text x="78" y="292" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',Arial,sans-serif" font-size="18" font-weight="bold" fill="#8a4f12" text-anchor="start">한 항목</text>
+<text x="190" y="292" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',Arial,sans-serif" font-size="18" font-weight="normal" fill="#183454" text-anchor="start">id · document · metadata · embedding</text>
+<rect x="62" y="320" width="496" height="50" rx="10" fill="#ffffff"/>
+<text x="78" y="352" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',Arial,sans-serif" font-size="18" font-weight="bold" fill="#8a4f12" text-anchor="start">검색 방법</text>
+<text x="190" y="352" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',Arial,sans-serif" font-size="18" font-weight="normal" fill="#183454" text-anchor="start">Python/HTTP API의 collection.query()</text>
+<rect x="62" y="380" width="496" height="50" rx="10" fill="#ffffff"/>
+<text x="78" y="412" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',Arial,sans-serif" font-size="18" font-weight="bold" fill="#8a4f12" text-anchor="start">실행 형태</text>
+<text x="190" y="412" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',Arial,sans-serif" font-size="18" font-weight="normal" fill="#183454" text-anchor="start">로컬 영구 저장 · 클라이언트-서버 · 클라우드</text>
+<rect x="62" y="440" width="496" height="50" rx="10" fill="#ffffff"/>
+<text x="78" y="472" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',Arial,sans-serif" font-size="18" font-weight="bold" fill="#8a4f12" text-anchor="start">로컬 저장</text>
+<text x="190" y="472" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',Arial,sans-serif" font-size="18" font-weight="normal" fill="#183454" text-anchor="start">SQLite 파일 + 벡터 인덱스 파일 사용</text>
+<rect x="620" y="128" width="540" height="382" rx="18" fill="#e8f1fd" stroke="#6f97cf" stroke-width="3"/>
+<text x="890" y="172" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',Arial,sans-serif" font-size="24" font-weight="bold" fill="#234b85" text-anchor="middle">PostgreSQL + pgvector — 테이블 중심</text>
+<rect x="642" y="200" width="496" height="50" rx="10" fill="#ffffff"/>
+<text x="658" y="232" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',Arial,sans-serif" font-size="18" font-weight="bold" fill="#234b85" text-anchor="start">저장 단위</text>
+<text x="770" y="232" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',Arial,sans-serif" font-size="18" font-weight="normal" fill="#183454" text-anchor="start">테이블 (lesson06_fixture_docs 등)</text>
+<rect x="642" y="260" width="496" height="50" rx="10" fill="#ffffff"/>
+<text x="658" y="292" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',Arial,sans-serif" font-size="18" font-weight="bold" fill="#234b85" text-anchor="start">한 행</text>
+<text x="770" y="292" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',Arial,sans-serif" font-size="18" font-weight="normal" fill="#183454" text-anchor="start">id · content · source · section · embedding</text>
+<rect x="642" y="320" width="496" height="50" rx="10" fill="#ffffff"/>
+<text x="658" y="352" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',Arial,sans-serif" font-size="18" font-weight="bold" fill="#234b85" text-anchor="start">검색 방법</text>
+<text x="770" y="352" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',Arial,sans-serif" font-size="18" font-weight="normal" fill="#183454" text-anchor="start">SQL: ORDER BY embedding &lt;=&gt; 질문 벡터</text>
+<rect x="642" y="380" width="496" height="50" rx="10" fill="#ffffff"/>
+<text x="658" y="412" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',Arial,sans-serif" font-size="18" font-weight="bold" fill="#234b85" text-anchor="start">확장 설치</text>
+<text x="770" y="412" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',Arial,sans-serif" font-size="18" font-weight="normal" fill="#183454" text-anchor="start">CREATE EXTENSION vector</text>
+<rect x="642" y="440" width="496" height="50" rx="10" fill="#ffffff"/>
+<text x="658" y="472" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',Arial,sans-serif" font-size="18" font-weight="bold" fill="#234b85" text-anchor="start">함께 쓰기</text>
+<text x="770" y="472" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',Arial,sans-serif" font-size="18" font-weight="normal" fill="#183454" text-anchor="start">JOIN · 트랜잭션 · 권한 · 기존 업무 데이터</text>
+<rect x="40" y="528" width="1120" height="92" rx="16" fill="#eef7f0" stroke="#8cc3a0" stroke-width="2"/>
+<text x="600" y="562" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',Arial,sans-serif" font-size="19" font-weight="bold" fill="#22643c" text-anchor="middle">공통점: 문서·메타데이터·벡터를 함께 저장하고, 질문 벡터와 가장 가까운 항목을 Top-K로 찾습니다.</text>
+<text x="600" y="596" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',Arial,sans-serif" font-size="17" font-weight="normal" fill="#536174" text-anchor="middle">이 강의의 실습은 PostgreSQL + pgvector 하나로 진행 · Chroma는 개념 비교만 (DBeaver 조회 가이드는 독립 선택 실습)</text>
+<text x="600.0" y="649" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',Arial,sans-serif" font-size="17" font-weight="normal" fill="#536174" text-anchor="middle">Chroma는 SQLite 전용 제품이 아니며, 로컬 영구 저장 모드에서 SQLite를 내부 저장소로 사용합니다</text>
+</svg>

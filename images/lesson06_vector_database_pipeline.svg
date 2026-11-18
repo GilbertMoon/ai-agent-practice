@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" width="1200" height="675" role="img" aria-labelledby="t d"><title id="t">Vector Database 처리 흐름 — 문서 등록과 질문 검색</title><desc id="d">문서는 문단으로 나누어 임베딩한 뒤 PostgreSQL과 pgvector에 한 번 저장하고, 질문은 검색할 때마다 임베딩해 저장된 문서 벡터와 코사인 거리로 비교합니다.</desc><defs><marker id="ah4f8a66" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#4f8a66"/></marker><marker id="ah5b7896" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#5b7896"/></marker><marker id="ahc27a2c" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#c27a2c"/></marker></defs>
+<rect x="0" y="0" width="1200" height="675" rx="0" fill="#f7f9fe"/>
+<text x="52" y="62" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',Arial,sans-serif" font-size="34" font-weight="bold" fill="#183454" text-anchor="start">Vector Database 처리 흐름</text>
+<text x="52" y="100" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',Arial,sans-serif" font-size="19" font-weight="normal" fill="#375777" text-anchor="start">문서 벡터는 한 번 저장해 재사용하고, 질문 벡터는 검색할 때마다 새로 만듭니다.</text>
+<rect x="30" y="128" width="1140" height="196" rx="18" fill="#eaf2ff" stroke="#9fbde6" stroke-width="2"/>
+<text x="52" y="160" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',Arial,sans-serif" font-size="21" font-weight="bold" fill="#234b85" text-anchor="start">① 문서 등록 — 한 번 실행 (index · live-index)</text>
+<rect x="55" y="182" width="235" height="122" rx="14" fill="#ffffff" stroke="#6f97cf" stroke-width="2.5"/>
+<text x="172.5" y="222" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',Arial,sans-serif" font-size="19" font-weight="bold" fill="#183454" text-anchor="middle">문서 원문</text>
+<text x="172.5" y="254" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',Arial,sans-serif" font-size="17" font-weight="normal" fill="#536174" text-anchor="middle">lesson04_notice.md</text>
+<text x="172.5" y="278" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',Arial,sans-serif" font-size="17" font-weight="normal" fill="#536174" text-anchor="middle">수업 공지</text>
+<rect x="340" y="182" width="235" height="122" rx="14" fill="#ffffff" stroke="#6f97cf" stroke-width="2.5"/>
+<text x="457.5" y="222" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',Arial,sans-serif" font-size="19" font-weight="bold" fill="#183454" text-anchor="middle">문단 구분</text>
+<text x="457.5" y="254" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',Arial,sans-serif" font-size="17" font-weight="normal" fill="#536174" text-anchor="middle">notice-01·02·03</text>
+<text x="457.5" y="278" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',Arial,sans-serif" font-size="17" font-weight="normal" fill="#536174" text-anchor="middle">ID·절 이름 부여</text>
+<rect x="625" y="182" width="235" height="122" rx="14" fill="#ffffff" stroke="#6f97cf" stroke-width="2.5"/>
+<text x="742.5" y="222" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',Arial,sans-serif" font-size="19" font-weight="bold" fill="#183454" text-anchor="middle">문단 Embedding</text>
+<text x="742.5" y="254" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',Arial,sans-serif" font-size="17" font-weight="normal" fill="#536174" text-anchor="middle">문단 → 숫자 벡터</text>
+<text x="742.5" y="278" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',Arial,sans-serif" font-size="17" font-weight="normal" fill="#536174" text-anchor="middle">(Fixture 또는 Live)</text>
+<rect x="910" y="182" width="235" height="122" rx="14" fill="#ffffff" stroke="#6f97cf" stroke-width="2.5"/>
+<text x="1027.5" y="222" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',Arial,sans-serif" font-size="19" font-weight="bold" fill="#183454" text-anchor="middle">PostgreSQL + pgvector</text>
+<text x="1027.5" y="254" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',Arial,sans-serif" font-size="17" font-weight="normal" fill="#536174" text-anchor="middle">id·content·source</text>
+<text x="1027.5" y="278" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',Arial,sans-serif" font-size="17" font-weight="normal" fill="#536174" text-anchor="middle">section·embedding 저장</text>
+<line x1="295" y1="243" x2="335" y2="243" stroke="#5b7896" stroke-width="3.5" marker-end="url(#ah5b7896)"/>
+<line x1="580" y1="243" x2="620" y2="243" stroke="#5b7896" stroke-width="3.5" marker-end="url(#ah5b7896)"/>
+<line x1="865" y1="243" x2="905" y2="243" stroke="#5b7896" stroke-width="3.5" marker-end="url(#ah5b7896)"/>
+<rect x="30" y="384" width="1140" height="196" rx="18" fill="#e9f6ee" stroke="#94c9a8" stroke-width="2"/>
+<text x="52" y="416" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',Arial,sans-serif" font-size="21" font-weight="bold" fill="#22643c" text-anchor="start">② 질문 검색 — 질문마다 실행 (query · live-query)</text>
+<rect x="55" y="438" width="235" height="122" rx="14" fill="#ffffff" stroke="#5d9f78" stroke-width="2.5"/>
+<text x="172.5" y="478" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',Arial,sans-serif" font-size="19" font-weight="bold" fill="#183454" text-anchor="middle">사용자 질문</text>
+<text x="172.5" y="510" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',Arial,sans-serif" font-size="17" font-weight="normal" fill="#536174" text-anchor="middle">“마감일”</text>
+<text x="172.5" y="534" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',Arial,sans-serif" font-size="17" font-weight="normal" fill="#536174" text-anchor="middle">“API Key 관리”</text>
+<rect x="340" y="438" width="235" height="122" rx="14" fill="#ffffff" stroke="#5d9f78" stroke-width="2.5"/>
+<text x="457.5" y="478" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',Arial,sans-serif" font-size="19" font-weight="bold" fill="#183454" text-anchor="middle">질문 Embedding</text>
+<text x="457.5" y="510" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',Arial,sans-serif" font-size="17" font-weight="normal" fill="#536174" text-anchor="middle">질문 → 숫자 벡터</text>
+<text x="457.5" y="534" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',Arial,sans-serif" font-size="17" font-weight="normal" fill="#536174" text-anchor="middle">검색할 때마다 새로 생성</text>
+<rect x="625" y="438" width="235" height="122" rx="14" fill="#ffffff" stroke="#5d9f78" stroke-width="2.5"/>
+<text x="742.5" y="478" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',Arial,sans-serif" font-size="19" font-weight="bold" fill="#183454" text-anchor="middle">코사인 거리 검색</text>
+<text x="742.5" y="510" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',Arial,sans-serif" font-size="17" font-weight="normal" fill="#536174" text-anchor="middle">embedding &lt;=&gt; 질문 벡터</text>
+<text x="742.5" y="534" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',Arial,sans-serif" font-size="17" font-weight="normal" fill="#536174" text-anchor="middle">거리 오름차순 LIMIT 3</text>
+<rect x="910" y="438" width="235" height="122" rx="14" fill="#ffffff" stroke="#5d9f78" stroke-width="2.5"/>
+<text x="1027.5" y="478" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',Arial,sans-serif" font-size="19" font-weight="bold" fill="#183454" text-anchor="middle">문단과 출처 반환</text>
+<text x="1027.5" y="510" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',Arial,sans-serif" font-size="17" font-weight="normal" fill="#536174" text-anchor="middle">id·section·source</text>
+<text x="1027.5" y="534" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',Arial,sans-serif" font-size="17" font-weight="normal" fill="#536174" text-anchor="middle">content·distance 출력</text>
+<line x1="295" y1="499" x2="335" y2="499" stroke="#4f8a66" stroke-width="3.5" marker-end="url(#ah4f8a66)"/>
+<line x1="580" y1="499" x2="620" y2="499" stroke="#4f8a66" stroke-width="3.5" marker-end="url(#ah4f8a66)"/>
+<line x1="865" y1="499" x2="905" y2="499" stroke="#4f8a66" stroke-width="3.5" marker-end="url(#ah4f8a66)"/>
+<line x1="1000" y1="308" x2="780" y2="432" stroke="#c27a2c" stroke-width="4" marker-end="url(#ahc27a2c)"/>
+<rect x="890" y="336" width="270" height="40" rx="10" fill="#fff4e6" stroke="#e0a45e" stroke-width="2"/>
+<text x="1025" y="362" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',Arial,sans-serif" font-size="18" font-weight="bold" fill="#8a4f12" text-anchor="middle">저장된 문서 벡터를 재사용</text>
+<text x="600.0" y="649" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',Arial,sans-serif" font-size="17" font-weight="normal" fill="#536174" text-anchor="middle">검색 결과는 답변의 근거 후보입니다 · 이번 강의에서는 GPT 자연어 답변 생성을 추가하지 않습니다</text>
+</svg>
