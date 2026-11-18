@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" width="1200" height="675" role="img" aria-labelledby="t d"><title id="t">Fixture와 Live 검색 비교</title><desc id="d">Fixture는 사람이 정한 3차원 벡터로 API 호출 없이 lesson06_fixture_docs에 저장하고, Live는 text-embedding-3-small 1536차원 벡터를 API Key와 비용을 확인한 뒤 lesson06_live_docs에 저장합니다. 두 모드의 벡터는 섞어 비교하지 않습니다.</desc><defs></defs>
+<rect x="0" y="0" width="1200" height="675" rx="0" fill="#f7f9fe"/>
+<text x="52" y="62" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',Arial,sans-serif" font-size="34" font-weight="bold" fill="#183454" text-anchor="start">Fixture와 Live 검색 비교</text>
+<text x="52" y="100" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',Arial,sans-serif" font-size="19" font-weight="normal" fill="#375777" text-anchor="start">같은 lesson06_pgvector.py, 다른 벡터 · 다른 테이블 · 다른 비용</text>
+<rect x="40" y="126" width="540" height="434" rx="18" fill="#fff7e6" stroke="#d9a441" stroke-width="3"/>
+<text x="310" y="168" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',Arial,sans-serif" font-size="24" font-weight="bold" fill="#7a5200" text-anchor="middle">Fixture · 기본 실습 (무료)</text>
+<rect x="62" y="190" width="496" height="50" rx="10" fill="#ffffff"/>
+<text x="78" y="222" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',Arial,sans-serif" font-size="18" font-weight="bold" fill="#7a5200" text-anchor="start">벡터</text>
+<text x="176" y="222" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',Arial,sans-serif" font-size="18" font-weight="normal" fill="#183454" text-anchor="start">사람이 정한 3차원 [1,0,0] 등</text>
+<rect x="62" y="250" width="496" height="50" rx="10" fill="#ffffff"/>
+<text x="78" y="282" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',Arial,sans-serif" font-size="18" font-weight="bold" fill="#7a5200" text-anchor="start">명령</text>
+<text x="176" y="282" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',Arial,sans-serif" font-size="18" font-weight="normal" fill="#183454" text-anchor="start">index · count · query</text>
+<rect x="62" y="310" width="496" height="50" rx="10" fill="#ffffff"/>
+<text x="78" y="342" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',Arial,sans-serif" font-size="18" font-weight="bold" fill="#7a5200" text-anchor="start">테이블</text>
+<text x="176" y="342" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',Arial,sans-serif" font-size="18" font-weight="normal" fill="#183454" text-anchor="start">lesson06_fixture_docs · VECTOR(3)</text>
+<rect x="62" y="370" width="496" height="50" rx="10" fill="#ffffff"/>
+<text x="78" y="402" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',Arial,sans-serif" font-size="18" font-weight="bold" fill="#7a5200" text-anchor="start">API 호출</text>
+<text x="176" y="402" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',Arial,sans-serif" font-size="18" font-weight="normal" fill="#183454" text-anchor="start">0회 · 비용 없음 · API Key 불필요</text>
+<rect x="62" y="430" width="496" height="50" rx="10" fill="#ffffff"/>
+<text x="78" y="462" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',Arial,sans-serif" font-size="18" font-weight="bold" fill="#7a5200" text-anchor="start">질문</text>
+<text x="176" y="462" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',Arial,sans-serif" font-size="18" font-weight="normal" fill="#183454" text-anchor="start">마감일 · API Key 관리 · 문의 게시판만</text>
+<rect x="62" y="490" width="496" height="50" rx="10" fill="#ffffff"/>
+<text x="78" y="522" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',Arial,sans-serif" font-size="18" font-weight="bold" fill="#7a5200" text-anchor="start">목적</text>
+<text x="176" y="522" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',Arial,sans-serif" font-size="18" font-weight="normal" fill="#183454" text-anchor="start">저장·재검색 원리 확인 (의미 임베딩 아님)</text>
+<rect x="620" y="126" width="540" height="434" rx="18" fill="#e8f1fd" stroke="#6f97cf" stroke-width="3"/>
+<text x="890" y="168" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',Arial,sans-serif" font-size="24" font-weight="bold" fill="#234b85" text-anchor="middle">Live · 선택 실습 (과금 가능)</text>
+<rect x="642" y="190" width="496" height="50" rx="10" fill="#ffffff"/>
+<text x="658" y="222" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',Arial,sans-serif" font-size="18" font-weight="bold" fill="#234b85" text-anchor="start">벡터</text>
+<text x="756" y="222" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',Arial,sans-serif" font-size="18" font-weight="normal" fill="#183454" text-anchor="start">text-embedding-3-small · 1536차원</text>
+<rect x="642" y="250" width="496" height="50" rx="10" fill="#ffffff"/>
+<text x="658" y="282" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',Arial,sans-serif" font-size="18" font-weight="bold" fill="#234b85" text-anchor="start">명령</text>
+<text x="756" y="282" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',Arial,sans-serif" font-size="18" font-weight="normal" fill="#183454" text-anchor="start">live-index · live-query</text>
+<rect x="642" y="310" width="496" height="50" rx="10" fill="#ffffff"/>
+<text x="658" y="342" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',Arial,sans-serif" font-size="18" font-weight="bold" fill="#234b85" text-anchor="start">테이블</text>
+<text x="756" y="342" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',Arial,sans-serif" font-size="18" font-weight="normal" fill="#183454" text-anchor="start">lesson06_live_docs · VECTOR(1536)</text>
+<rect x="642" y="370" width="496" height="50" rx="10" fill="#ffffff"/>
+<text x="658" y="402" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',Arial,sans-serif" font-size="18" font-weight="bold" fill="#234b85" text-anchor="start">API 호출</text>
+<text x="756" y="402" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',Arial,sans-serif" font-size="18" font-weight="normal" fill="#183454" text-anchor="start">live-index 1회 + 질문마다 1회</text>
+<rect x="642" y="430" width="496" height="50" rx="10" fill="#ffffff"/>
+<text x="658" y="462" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',Arial,sans-serif" font-size="18" font-weight="bold" fill="#234b85" text-anchor="start">준비</text>
+<text x="756" y="462" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',Arial,sans-serif" font-size="18" font-weight="normal" fill="#183454" text-anchor="start">OPENAI_API_KEY · 권한 · 비용 확인</text>
+<rect x="642" y="490" width="496" height="50" rx="10" fill="#ffffff"/>
+<text x="658" y="522" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',Arial,sans-serif" font-size="18" font-weight="bold" fill="#234b85" text-anchor="start">질문</text>
+<text x="756" y="522" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',Arial,sans-serif" font-size="18" font-weight="normal" fill="#183454" text-anchor="start">임의의 자연어 질문 검색 가능</text>
+<rect x="40" y="572" width="1120" height="48" rx="12" fill="#fdeeee" stroke="#d98c8c" stroke-width="2"/>
+<text x="600" y="603" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',Arial,sans-serif" font-size="19" font-weight="bold" fill="#8c2f2f" text-anchor="middle">✕ 두 모드의 벡터를 한 테이블에 섞거나 서로 비교하지 않습니다 — 차원과 생성 방식이 다릅니다</text>
+<text x="600.0" y="649" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',Arial,sans-serif" font-size="17" font-weight="normal" fill="#536174" text-anchor="middle">count · check · Fixture 명령은 OpenAI API를 호출하지 않습니다 · 실행하지 않은 Live 항목은 NOT_RUN으로 기록</text>
+</svg>
