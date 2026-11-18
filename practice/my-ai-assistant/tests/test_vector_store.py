@@ -3,8 +3,10 @@ import contextlib
 import gc
 import io
 import os
+import shutil
 import sys
 import tempfile
+import time
 import unittest
 from pathlib import Path
 from unittest.mock import patch
@@ -14,15 +16,31 @@ sys.path.insert(0, str(ROOT))
 
 from vector_store import create_client, get_collection, index_document, query_document, main as store_main
 
+# Measured on Windows 11 + chromadb 1.5.9: after every Python reference to the
+# Rust bindings is gone, chroma.sqlite3 can stay locked for a few milliseconds
+# (observed max ~6 ms). Wait for that release, but never hide a real lock.
+CLEANUP_TIMEOUT_SECONDS = 5.0
+
+
+def remove_tree_when_released(path: Path, timeout: float = CLEANUP_TIMEOUT_SECONDS) -> None:
+    deadline = time.monotonic() + timeout
+    while True:
+        try:
+            shutil.rmtree(path)
+            return
+        except PermissionError:
+            if time.monotonic() >= deadline:
+                raise  # still locked: report the original WinError 32
+            time.sleep(0.05)
+
 
 class VectorStoreTests(unittest.TestCase):
     def setUp(self):
-        self.temp = tempfile.TemporaryDirectory()
-        self.addCleanup(self.temp.cleanup)
+        self.folder = Path(tempfile.mkdtemp())
+        self.addCleanup(remove_tree_when_released, self.folder)
         # Chroma 1.x keeps SQLite/HNSW file handles in a shared client cache.
         # unittest runs cleanups LIFO: release handles before removing temp dir.
         self.addCleanup(self._release_chroma)
-        self.folder = Path(self.temp.name)
 
     @staticmethod
     def _release_chroma():
