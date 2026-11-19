@@ -136,6 +136,30 @@ class ToolCallingTests(unittest.TestCase):
                 self.assertIn("[LIVE_INCOMPLETE]", output)
                 self.assertIn("[HOLD]", output)
 
+    def test_live_step_limit_holds_with_exit_4(self):
+        first = SimpleNamespace(type="function_call", name="add_numbers", arguments='{"a":12,"b":30}', call_id="s1")
+        again = SimpleNamespace(type="function_call", name="add_numbers", arguments='{"a":1,"b":2}', call_id="s2")
+        code, output, client = self._mock_live([
+            SimpleNamespace(output=[first], output_text="", status="completed", incomplete_details=None, model="test"),
+            SimpleNamespace(output=[again], output_text="", status="completed", incomplete_details=None, model="test"),
+        ])
+        self.assertEqual(code, 4)  # HOLD must not exit 0 (success)
+        self.assertIn("[HOLD]", output)
+        self.assertEqual(output.count("[TOOL_EXECUTED]"), 1)  # the request at the step limit is not executed
+        self.assertNotIn("call_id=s2", output)
+        self.assertEqual(client.responses.create.call_count, 2)
+
+    def test_live_too_many_tool_calls_holds_with_exit_4(self):
+        calls = [SimpleNamespace(type="function_call", name="add_numbers", arguments='{"a":1,"b":2}', call_id=f"m{i}")
+                 for i in range(4)]
+        code, output, client = self._mock_live([
+            SimpleNamespace(output=calls, output_text="", status="completed", incomplete_details=None, model="test"),
+        ])
+        self.assertEqual(code, 4)
+        self.assertIn("[HOLD]", output)
+        self.assertNotIn("[TOOL_EXECUTED]", output)
+        self.assertEqual(client.responses.create.call_count, 1)
+
 
 if __name__=="__main__":
     unittest.main()
