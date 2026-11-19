@@ -129,12 +129,13 @@ def run_live(question: str) -> int:
             print(answer)
             print(f"[LIVE] model={getattr(response, 'model', model)}; step={step}; status={status}")
             return 0
+        # Every HOLD exits with 4 (like the incomplete-answer HOLD above), never 0, so it cannot pass as success.
         if step == MAX_STEPS:
             print("[HOLD] 도구 호출 단계 상한에 도달했습니다. 추가 도구를 실행하지 않습니다.")
-            return 0
+            return 4
         if len(calls) > 3:
             print("[HOLD] 허용된 호출 개수를 초과했습니다.")
-            return 0
+            return 4
         for item in calls:
             request = ToolRequest(item.name, item.arguments, item.call_id)
             try:
